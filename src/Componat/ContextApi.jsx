@@ -9,7 +9,7 @@ const ContextApi = ({children}) => {
   const getData = () => {
     axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json")
       .then((res) => {
-         (res.data || []);  // Ensure you handle null or empty data
+        setInfo(res.data || []);  // Ensure you handle null or empty data
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -19,9 +19,6 @@ const ContextApi = ({children}) => {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(info);
-
   return (
     <apiData.Provider value={info}>{children}</apiData.Provider>
   );
