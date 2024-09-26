@@ -118,9 +118,13 @@ const UserContact = () => {
             </div>
             </div>
             }
-        <div className="btn w-[100%] flex justify-between">
-            <h2 onClick={HandleEdit} className='w-[150px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[20px]' >Edit</h2>
-            <h2 onClick={Handleupload} className='w-[150px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[20px]' >upload</h2>
+        <div className="btn w-[100%] my-[20px] flex justify-between">
+            {
+                Edit === false &&  <h2 onClick={HandleEdit} className='w-[100px] sm:w-[150px] sm:h-[40px] sm:text-[20px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[16px]' >Edit</h2>
+            }
+            {
+                Edit === true &&   <h2 onClick={Handleupload} className='w-[100px] sm:w-[150px] sm:h-[40px] sm:text-[20px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[16px]' >upload</h2>
+            }
         </div>
     </div>
   )
