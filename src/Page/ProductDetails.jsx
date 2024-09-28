@@ -122,9 +122,7 @@ const ProductDetails = () => {
   let handleSlickClose = () => {
     setShowSlick(false)
   }
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
+  
   return (
     <section>
       <div className="container mx-auto px-[10px] py-[10px]">

@@ -7,6 +7,7 @@ const AllProductsHome = () => {
     let productsData = useContext(apiData)
 
     let handleProDetails = (item) => {
+        window.scrollTo(0, 0);
         navigate(`productDetails/${item.ProdectId}`);
     }
 
