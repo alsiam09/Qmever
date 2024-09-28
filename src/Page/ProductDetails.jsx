@@ -40,6 +40,7 @@ const ProductDetails = () => {
   let [ ProdectQun , setProdectQun ] = useState(1)
   let [ Lodingon , setLodingOn ] = useState(false)
   let [ Loding , setLoding ] = useState(false)
+  let [ modelselect , setModelselect ] = useState(false)
   let productData = () => axios.get(`https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products/${productId.id}.json`).then((res) => {
     setInfo(res.data);
     setInfo2(res.data.thumbnail)
@@ -71,7 +72,12 @@ const ProductDetails = () => {
             console.log("ok");
                      
           }, 1000);
-        }   
+        } else {
+          setModelselect(true)
+          setTimeout(() => {
+            setModelselect(false)
+          }, 1000);
+        }
       } else{
         dispatch(userBuyItem({info}))
         console.log(info);
@@ -122,6 +128,11 @@ const ProductDetails = () => {
   return (
     <section>
       <div className="container mx-auto px-[10px] py-[10px]">
+      {
+          modelselect === true 
+          ? <div className="bg-[#d31212] text-[#fff] text-[18px] w-[200px] rounded duration-500 h-[34px] fixed top-[100px] left-[50%] translate-x-[-50%] flex justify-center items-center">{info.ModelName} not select </div>
+          : <div className="bg-[#d31212] text-[#fff] text-[18px] w-[200px] rounded duration-500 h-[34px] fixed top-0 left-[50%] translate-x-[-50%] flex justify-center items-center">you can do it</div>
+        }
       <div className={`loging fixed ${Lodingon === true ? " block " : "hidden"} border-[4px] border-[#fff] rounded z-[999] duration-100 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[200px] h-[40px] bg-[#fff]`}>
       {
           Loding === true 
@@ -181,7 +192,7 @@ const ProductDetails = () => {
             <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
             <div className="modles mb-[30px] flex gap-[10px]">
             {info3.map(( addModle , index )=>(
-            <h2 onClick={()=>handleModel({index , addModle})} className={` flex border-[1px] w-[50px] h-[50px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle  ? "bg-[#fff] text-[#000]" :"border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle}</h2>
+            <h2 onClick={()=>handleModel({index , addModle})} className={` ${ modelselect === true && "border-[red]"} flex border-[1px] w-[50px] h-[50px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle  ? "bg-[#fff] text-[#000]" :"border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle}</h2>
             ))}
             </div>
             <div className="BTnCaBy flex gap-[10px] w-[100%]">
