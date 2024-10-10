@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "../Css/banner.css"
 import { IoIosArrowForward , IoIosArrowBack , IoMdClose } from "react-icons/io";
 import { AddToCart, BuyItemDelete, userBuyItem } from '../Componat/slice/AllSlice';
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 
 function SampleNextArrow(props) {
     const { onClick } = props;
@@ -42,6 +43,7 @@ const ProductDetails = () => {
   let [ Lodingon , setLodingOn ] = useState(false)
   let [ Loding , setLoding ] = useState(false)
   let [ modelselect , setModelselect ] = useState(false)
+  let [ addsucess , setaddsucess ] = useState(false)
   let productData = () => axios.get(`https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products/${productId.id}.json`).then((res) => {
     setInfo(res.data);
     setInfo2(res.data.thumbnail)
@@ -94,14 +96,11 @@ const ProductDetails = () => {
     if (userUID !== "") {
       if (info3 !== "") {
         if (modleaddicon !== "") {
-          setLodingOn(true)
-          setTimeout(() => {
-            setLoding(true)
-          }, 30);
             dispatch(AddToCart({ ...info , size:modleaddicon , Pricesub:modlePrice , ProdectQun}))
-            navigate('/CartPage')   
-            console.log("ok");
-                     
+            setaddsucess(true)
+            setTimeout(() => {
+              setaddsucess(false)
+            }, 1000);
         } else {
           setModelselect(true)
           setTimeout(() => {
@@ -218,7 +217,7 @@ const ProductDetails = () => {
             </div>
             <div className="BTnCaBy flex gap-[10px] w-[100%]">
               <h2 onClick={handleBuyNow} className='cursor-pointer text-[#000] bg-[#fff] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>Buy Now</h2>
-              <h2 onClick={handleAddTocart} className='cursor-pointer text-[#000] bg-[#fff] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>Add To Cart</h2>
+              <h2 onClick={handleAddTocart} className='cursor-pointer text-[#000] bg-[#fff] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>{addsucess === true ? <h2 className='text-[24px] text-[#188918]'><IoCheckmarkDoneCircle/></h2> : <h2>Add To Cart</h2> } </h2>
             </div>
             <div className="description mt-[50px] border-t-[2px] border-t-[#fff]">
               <p className='text-[#ffffffa4] text-[16px] font-[400] my-[30px]'>{info.description}</p>
