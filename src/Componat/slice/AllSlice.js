@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
   initialState: {
     user: localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")) :[],
     BuyItem: localStorage.getItem("BuyItem")? JSON.parse(localStorage.getItem("BuyItem")) :[],
+    cartItem: localStorage.getItem("cartItem")? JSON.parse(localStorage.getItem("cartItem")) :[],
   },
   reducers: {
     userUidLogin:(state , action) => {
@@ -24,10 +25,20 @@ export const counterSlice = createSlice({
       state.BuyItem.splice(action.payload)
       localStorage.setItem("BuyItem" , JSON.stringify(state.BuyItem))
     },
+    AddToCart:(state , action) => {
+      let FindProduct = state.cartItem.findIndex((item)=> item.id == action.payload.id)
+      if (FindProduct !== -1) {
+        state.cartItem[FindProduct].ProdectQun += 1
+        localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+      } else {
+        state.cartItem = [ ...state.cartItem , action.payload ]
+        localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+      }
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete} = counterSlice.actions
+export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete , AddToCart } = counterSlice.actions
 
 export default counterSlice.reducer

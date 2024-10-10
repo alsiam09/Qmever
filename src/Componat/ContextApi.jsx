@@ -16,6 +16,8 @@ const ContextApi = ({children}) => {
       });
   };
 
+  console.log(info);
+  
   useEffect(() => {
     getData();
   }, []);

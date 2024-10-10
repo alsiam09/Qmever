@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Slider from "react-slick";
 import "../Css/banner.css"
 import { IoIosArrowForward , IoIosArrowBack , IoMdClose } from "react-icons/io";
-import { BuyItemDelete, userBuyItem } from '../Componat/slice/AllSlice';
+import { AddToCart, BuyItemDelete, userBuyItem } from '../Componat/slice/AllSlice';
 
 function SampleNextArrow(props) {
     const { onClick } = props;
@@ -37,6 +37,7 @@ const ProductDetails = () => {
   let [info2, setInfo2] = useState([])
   let [info3, setInfo3] = useState([])
   let [ modleaddicon , setmodleaddicon ] = useState('')
+  let [ modlePrice , setmodlePrice ] = useState('')
   let [ ProdectQun , setProdectQun ] = useState(1)
   let [ Lodingon , setLodingOn ] = useState(false)
   let [ Loding , setLoding ] = useState(false)
@@ -61,13 +62,13 @@ const ProductDetails = () => {
     if (userUID !== "") {
       if (info3 !== "") {
         if (modleaddicon !== "") {
-          dispatch(BuyItemDelete({ ...info , size:modleaddicon , ProdectQun}))
+          dispatch(BuyItemDelete({ ...info , size:modleaddicon , Pricesub:modlePrice , ProdectQun}))
           setLodingOn(true)
           setTimeout(() => {
             setLoding(true)
           }, 30);
           setTimeout(() => {
-            dispatch(userBuyItem({ ...info , size:modleaddicon , ProdectQun}))
+            dispatch(userBuyItem({ ...info , size:modleaddicon , Pricesub:modlePrice , ProdectQun}))
             navigate('/CheckOut')   
             console.log("ok");
                      
@@ -91,7 +92,27 @@ const ProductDetails = () => {
   }
   let handleAddTocart = () => {
     if (userUID !== "") {
-      
+      if (info3 !== "") {
+        if (modleaddicon !== "") {
+          setLodingOn(true)
+          setTimeout(() => {
+            setLoding(true)
+          }, 30);
+            dispatch(AddToCart({ ...info , size:modleaddicon , Pricesub:modlePrice , ProdectQun}))
+            navigate('/CartPage')   
+            console.log("ok");
+                     
+        } else {
+          setModelselect(true)
+          setTimeout(() => {
+            setModelselect(false)
+          }, 1000);
+        }
+      } else{
+        dispatch(userBuyItem({info}))
+        console.log(info);
+        navigate('/CheckOut')
+      }
     } else{
       console.log("errror");
       setLogErr(true)
@@ -103,7 +124,9 @@ const ProductDetails = () => {
   }
   
   let handleModel = ({index , addModle}) => {
-      setmodleaddicon(addModle)
+      setmodleaddicon(addModle.Model)
+      setmodlePrice(addModle.Price)
+
   }
   var settings = {
     dots: true,
@@ -186,11 +209,11 @@ const ProductDetails = () => {
           </div>
           <div className="details w-[100%] lg:w-[43%]">
             <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>{info.Prodectname}</h2>
-            <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{info.Price}৳</span></h2>
+            <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{modlePrice !== "" ? modlePrice : info.Price}৳</span></h2>
             <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
             <div className="modles mb-[30px] flex gap-[10px]">
             {info3.map(( addModle , index )=>(
-            <h2 onClick={()=>handleModel({index , addModle})} className={` ${ modelselect === true && "border-[red]"} flex border-[1px] w-[50px] h-[50px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle  ? "bg-[#fff] text-[#000]" :"border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle}</h2>
+            <h2 onClick={()=>handleModel({index , addModle})} className={` ${ modelselect === true && "border-[red]"} flex border-[1px] w-[50px] h-[50px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model  ? "bg-[#fff] text-[#000]" :"border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
             ))}
             </div>
             <div className="BTnCaBy flex gap-[10px] w-[100%]">
@@ -199,7 +222,7 @@ const ProductDetails = () => {
             </div>
             <div className="description mt-[50px] border-t-[2px] border-t-[#fff]">
               <p className='text-[#ffffffa4] text-[16px] font-[400] my-[30px]'>{info.description}</p>
-              <iframe className=' w-[100%] sm:h-[315px]' src="https://www.youtube.com/embed/Nj2U6rhnucI?si=jSv9yBSt4_4_S-JT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe className=' w-[100%] sm:h-[315px]' src={info.VideoURL} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
           </div>
         </div>
