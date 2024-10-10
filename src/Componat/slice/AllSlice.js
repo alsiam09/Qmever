@@ -27,18 +27,38 @@ export const counterSlice = createSlice({
     },
     AddToCart:(state , action) => {
       let FindProduct = state.cartItem.findIndex((item)=> item.id == action.payload.id)
-      if (FindProduct !== -1) {
-        state.cartItem[FindProduct].ProdectQun += 1
-        localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+      let FindProductModel = state.cartItem.findIndex((item)=> item.size == action.payload.size)
+      // console.log(FindProductModel);
+      
+      if (FindProduct !== -1 ) {
+        if (FindProductModel !== -1) {
+          state.cartItem[FindProductModel].ProdectQun += 1
+          localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+        }else{
+          state.cartItem = [ ...state.cartItem , action.payload ]
+          localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+        }
       } else {
         state.cartItem = [ ...state.cartItem , action.payload ]
         localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
       }
+    },
+    removeCartPro:(state , action) => {
+      state.cartItem.splice(action.payload , 1)
+      localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+    },
+    qunIncrement:(state , action) =>{
+      state.cartItem[action.payload].ProdectQun += 1
+      localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+    },
+    qunDecrement:(state , action) =>{
+      state.cartItem[action.payload].ProdectQun -= 1
+      localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete , AddToCart } = counterSlice.actions
+export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete , AddToCart , removeCartPro , qunIncrement , qunDecrement } = counterSlice.actions
 
 export default counterSlice.reducer

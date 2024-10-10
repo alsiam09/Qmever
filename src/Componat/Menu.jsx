@@ -134,7 +134,7 @@ const Menu = () => {
         <div className=' z-[999] px-[10px] bg-[#000] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
-            <h1 className='text-[red] uppercase text-[30px] underline font-[700]'>Glittrld</h1>
+            <h1 className='text-[#279439] uppercase text-[30px] underline font-[700]'>mysterious forest</h1>
             </div>
             <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
               <icon className='text-[38px] text-[red]' ><FaBars /></icon>
