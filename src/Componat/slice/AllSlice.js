@@ -52,7 +52,7 @@ export const counterSlice = createSlice({
       localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
     },
     qunDecrement:(state , action) =>{
-      state.cartItem[action.payload].ProdectQun -= 1
+      state.cartItem[action.payload ].ProdectQun -= 1
       localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
     }
   },
