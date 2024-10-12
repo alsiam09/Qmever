@@ -27,17 +27,14 @@ export const counterSlice = createSlice({
     },
     AddToCart:(state , action) => {
       let FindProduct = state.cartItem.findIndex((item)=> item.id == action.payload.id)
-      let FindProductModel = state.cartItem.findIndex((item)=> item.size == action.payload.size)
-      // console.log(FindProductModel);
+      let FindProductModel = state.cartItem.findIndex((item)=> item.size === action.payload.size)
+      let FindProductPCU = state.cartItem.findIndex((item)=> item.PCU === action.payload.PCU)
+      console.log(FindProductPCU);
+
       
-      if (FindProduct !== -1 ) {
-        if (FindProductModel !== -1) {
+      if (FindProduct !== -1 && FindProductModel !== -1  && FindProductPCU !== -1 ) {
           state.cartItem[FindProductModel].ProdectQun += 1
           localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
-        }else{
-          state.cartItem = [ ...state.cartItem , action.payload ]
-          localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
-        }
       } else {
         state.cartItem = [ ...state.cartItem , action.payload ]
         localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
@@ -52,8 +49,10 @@ export const counterSlice = createSlice({
       localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
     },
     qunDecrement:(state , action) =>{
-      state.cartItem[action.payload ].ProdectQun -= 1
-      localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+      if (state.cartItem[action.payload ].ProdectQun > 1) {
+        state.cartItem[action.payload ].ProdectQun -= 1
+        localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
+      }
     }
   },
 })

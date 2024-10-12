@@ -16,7 +16,7 @@ const ContextApi = ({children}) => {
       });
   };
 
-  console.log(info);
+  console.log(info , "ok");
   
   useEffect(() => {
     getData();
