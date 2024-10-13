@@ -7,7 +7,7 @@ const ContextApi = ({ children }) => {
   let [info, setInfo] = useState([]);
   let [loading, setLoading] = useState(true);
   let [page, setPage] = useState(1);
-  const itemsPerPage = 10; // Adjust this to load more or fewer items
+  const itemsPerPage = 5; // Adjust this to load more or fewer items
 
   const getData = async () => {
     try {
@@ -25,8 +25,11 @@ const ContextApi = ({ children }) => {
   }, [page]);
 
   const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !loading) {
+    
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight && !loading) {      
       setPage(prevPage => prevPage + 1);
+    } else{
+
     }
   };
 
@@ -42,7 +45,7 @@ const ContextApi = ({ children }) => {
   return (
     <apiData.Provider value={info}>
       {children}
-      {loading && <p>Loading...</p>} {/* Optional loading indicator */}
+      {loading && <p className='text-[#fff]'>Loading...</p>} {/* Optional loading indicator */}
     </apiData.Provider>
   );
 };
