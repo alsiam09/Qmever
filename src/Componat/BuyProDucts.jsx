@@ -1,7 +1,6 @@
 import React from 'react'
 
 const BuyProDucts = ({ BuyItem }) => {
-  console.log(BuyItem);
 
   return (
     <div className="BuyProDuct w-[100%] md:w-[40%]">
