@@ -3,26 +3,47 @@ import axios from 'axios';
 
 let apiData = createContext();
 
-const ContextApi = ({children}) => {
+const ContextApi = ({ children }) => {
   let [info, setInfo] = useState([]);
+  let [loading, setLoading] = useState(true);
+  let [page, setPage] = useState(1);
+  const itemsPerPage = 10; // Adjust this to load more or fewer items
 
-  const getData = () => {
-    axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json")
-      .then((res) => {
-        setInfo(res.data || []);  // Ensure you handle null or empty data
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+  const getData = async () => {
+    try {
+      const res = await axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json");
+      setInfo(prevInfo => [...prevInfo, ...res.data.slice((page - 1) * itemsPerPage, page * itemsPerPage)]);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
+    }
   };
 
-  console.log(info , "ok");
-  
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !loading) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading]);
+
+  console.log(info, "ok");
+
   return (
-    <apiData.Provider value={info}>{children}</apiData.Provider>
+    <apiData.Provider value={info}>
+      {children}
+      {loading && <p>Loading...</p>} {/* Optional loading indicator */}
+    </apiData.Provider>
   );
 };
 
