@@ -222,7 +222,7 @@ const ProductDetails = () => {
                 ?
                 <div className="modles mb-[30px] flex-wrap flex gap-[10px]">
                   {info3.map((addModle, index) => (
-                    <h2 onClick={() => handleModel({ index, addModle })} className={` ${modelselect === true && "border-[red]"} flex border-[1px] w-[50px] h-[50px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model ? "bg-[#fff] text-[#000]" : "border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
+                    <h2 onClick={() => handleModel({ index, addModle })} className={` ${modelselect === true && "border-[red]"} flex border-[1px] py-[10px] px-[20px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model ? "bg-[#fff] text-[#000]" : "border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
                   ))}
                 </div>
                 : ""

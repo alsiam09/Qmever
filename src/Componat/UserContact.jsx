@@ -17,6 +17,8 @@ const UserContact = () => {
     let [ userAddress  , setuserAddress   ] = useState('')
     let [ userAddressup  , setuserAddressup   ] = useState('')
     let [ undefended , setundefended ] = useState('undefended')
+    console.log(userDelivery);
+    
     useEffect(()=>{
         const starCountRef = ref(db, 'users/' + userUid);
         onValue(starCountRef, (snapshot) => {
@@ -33,14 +35,15 @@ const UserContact = () => {
     let HandleEdit = () => {
         setEdit(true)
     }
+    
     let Handleupload = () => {
         set(ref(db, 'users/' + `${userUid}/` + 'Delivery_address/'), {
-          username: userNameup,
-          Phone_Number: userNumberUp,
-          local_address: userAddressup,
-          City: userCityup,
+          username: userNameup === "" ? userDelivery.username : userNameup ,
+          Phone_Number: userNumberUp === "" ? userDelivery.Phone_Number : userNumberUp ,
+          local_address: userAddressup === "" ? userDelivery.local_address : userAddressup,
+          City: userCityup === "" ? userDelivery.City : userCityup,
           email: userDelivery.email,
-          Division: userDivisionup,
+          Division: userDivisionup === "" ? userDelivery.Division : userDivisionup,
         })
         .then(()=>{
             console.log(userDelivery);
@@ -72,23 +75,23 @@ const UserContact = () => {
             ? <div className="yourCon w-[100%]">
             <div className="Name justify-between my-[10px]">
                 <h2 className='text-[#fff] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Name :</h2>
-                <input onChange={HandleName} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
+                <input placeholder={`${userDelivery.username}`} onChange={HandleName} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
             </div>
             <div className="PhoneNumber justify-between my-[10px]">
                 <h2 className='text-[#fff] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Phone Number :</h2>
-                <input onChange={HandleNumber} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
+                <input placeholder={`${userDelivery.Phone_Number}`} onChange={HandleNumber} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
             </div>
             <div className="Division justify-between my-[10px]">
                 <h2 className='text-[#fff] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Division :</h2>
-                <input onChange={HandleDivision} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
+                <input placeholder={`${userDelivery.Division}`} onChange={HandleDivision} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
             </div>
             <div className="City justify-between my-[10px]">
                 <h2 className='text-[#fff] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your City :</h2>
-                <input onChange={HandleCity} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
+                <input placeholder={`${userDelivery.City}`} onChange={HandleCity} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
             </div>
             <div className="localAddress justify-between my-[10px]">
                 <h2 className='text-[#fff] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your local Address :</h2>
-                <input onChange={HandleAddress} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
+                <input placeholder={`${userDelivery.local_address}`} onChange={HandleAddress} type="text" className='text-[#fff] bg-[#111111] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]'/>
             </div>
             </div>
             : <div className="yourCon w-[100%]">
@@ -102,19 +105,19 @@ const UserContact = () => {
             </div>
             <div className="Name my-[30px]">
                 <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Phone Number :</h2>
-                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userNumber !== "" ? userNumber : undefended }</h2>
+                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number : undefended }</h2>
             </div>
             <div className="Name my-[30px]">
                 <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Division :</h2>
-                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userDivision !== "" ? userDivision : undefended }</h2>
+                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userDelivery.Division !== "" ? userDelivery.Division : undefended }</h2>
             </div>
             <div className="Name my-[30px]">
                 <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your City :</h2>
-                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userCity !== "" ? userCity : undefended }</h2>
+                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userDelivery.City !== "" ? userDelivery.City : undefended }</h2>
             </div>
             <div className="Name my-[30px]">
                 <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your local Address :</h2>
-                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userAddress !== "" ? userAddress : undefended }</h2>
+                <h2 className='text-[#fff] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{ userDelivery.local_address !== "" ? userDelivery.local_address : undefended }</h2>
             </div>
             </div>
             }
