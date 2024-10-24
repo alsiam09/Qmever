@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { apiData } from './ContextApi';
 import { useNavigate } from 'react-router-dom';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 const AllProductsHome = () => {
 
     let navigate = useNavigate()
@@ -12,6 +14,7 @@ const AllProductsHome = () => {
     }
 
     return (
+        
         <section className='py-[30px] sm:py-[50px] px-[10px]'>
             <div className="container mx-auto">
                 <div className="ProPraBox cursor-pointer w-[100%] flex flex-wrap gap-[4px] sm:gap-[12px]">
@@ -31,7 +34,6 @@ const AllProductsHome = () => {
                             
 
                     ))}
-
                 </div>
             </div>
         </section>

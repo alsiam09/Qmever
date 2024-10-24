@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 let apiData = createContext();
 
 const ContextApi = ({ children }) => {
@@ -45,7 +46,15 @@ const ContextApi = ({ children }) => {
   return (
     <apiData.Provider value={info}>
       {children}
-      {loading && <p className='text-[#fff]'>Loading...</p>} {/* Optional loading indicator */}
+      {loading && <div className=" container mx-auto ">
+        <div className=" my-[40px] ">
+                <SkeletonTheme className='' baseColor="#202020" highlightColor="#444">
+    <p>
+      <Skeleton count={3} />
+    </p>
+  </SkeletonTheme>
+      </div>
+      </div>} {/* Optional loading indicator */}
     </apiData.Provider>
   );
 };
