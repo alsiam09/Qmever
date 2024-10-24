@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { apiData } from './ContextApi';
 import { useNavigate } from 'react-router-dom';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css'
 const AllProductsHome = () => {
 
     let navigate = useNavigate()
