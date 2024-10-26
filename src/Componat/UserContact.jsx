@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getDatabase, ref, onValue , set } from "firebase/database";
 
-const UserContact = () => {
+const UserContact = ({userDelivery}) => {
     const db = getDatabase();
     let userUid = useSelector((item)=>item.counter.user)
     let [ Edit , setEdit ] = useState(false)
-    let [ userDelivery , setuserDelivery ] = useState({})
     let [ userNameup , setuserNameup ] = useState('')
     let [ userNumber  , setuserNumber  ] = useState('')
     let [ userNumberUp  , setuserNumberup  ] = useState('')
@@ -17,15 +16,7 @@ const UserContact = () => {
     let [ userAddress  , setuserAddress   ] = useState('')
     let [ userAddressup  , setuserAddressup   ] = useState('')
     let [ undefended , setundefended ] = useState('undefended')
-    console.log(userDelivery);
-    
-    useEffect(()=>{
-        const starCountRef = ref(db, 'users/' + userUid);
-        onValue(starCountRef, (snapshot) => {
-            const data = snapshot.val().Delivery_address;
-            setuserDelivery(data)            
-          });
-    },[db])
+
     useEffect(()=>{
         setuserNumber(userDelivery.Phone_Number)
         setuserCity(userDelivery.City)

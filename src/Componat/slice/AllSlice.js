@@ -53,11 +53,15 @@ export const counterSlice = createSlice({
         state.cartItem[action.payload ].ProdectQun -= 1
         localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
       }
+    },
+    removeAllcartPro:(state , action) => {
+      state.cartItem.splice(action.payload)
+      localStorage.setItem("cartItem" , JSON.stringify(state.cartItem))
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete , AddToCart , removeCartPro , qunIncrement , qunDecrement } = counterSlice.actions
+export const { userUidLogin , userLogout , userBuyItem , BuyItemDelete , AddToCart , removeCartPro , qunIncrement , qunDecrement , removeAllcartPro } = counterSlice.actions
 
 export default counterSlice.reducer
