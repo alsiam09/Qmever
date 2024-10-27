@@ -89,7 +89,7 @@ const Cartpage = () => {
         ))}
         
         <div className="TotalBillbox my-[30px] mx-[10px] flex justify-end">
-          <h2 onClick={HandleCheckoutGo} className="Total rounded sm:w-[20%] flex justify-center items-center p-[7px] border-[2px] bg-[#081939] sm:text-[19px] font-[600] text-[gold]">Procces to CheckOut</h2>
+          <h2 onClick={HandleCheckoutGo} className=" Total rounded-[20px] w-[100%] md:w-[20%]  flex justify-center items-center p-[7px] border-[2px] border-[#000] bg-[#fff] sm:text-[19px] font-[600]  text-[#766c2b]">Procces to CheckOut</h2>
         </div>
       </div>
     </section>

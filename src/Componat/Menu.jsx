@@ -137,7 +137,7 @@ const Menu = () => {
             <h1 className='text-[gold] uppercase text-[30px] font-[700]'>rupkotha</h1>
             </div>
             <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
-              <icon className='text-[38px] text-[#ff1586]' ><FaBars /></icon>
+              <icon className='text-[38px] text-[gold]' ><FaBars /></icon>
             </div>
           </div>
         </div>
@@ -148,30 +148,56 @@ const Menu = () => {
           <ul className='w-[100%] mt-[60px]'>
           {
               useruid === ""
-            ? <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>My Account</li>
-            : <div className=' gap-[10px] items-center font-sans h-[50px] flex text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>
-              <img className=' rounded-[50%] h-[45px]' src={userData.profile_picture} alt="" />
-              <h2 className='text-[15px]'>{userData.username}</h2>
+            ? <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] flex justify-between font-[700]'>Nice to meet you.will you be my friend</li>
+            : <div className=' bg-[#081939] cursor-pointer py-[30px] gap-[10px] items-center font-sans h-[50px] flex text-[22px] px-[20px] rounded-[10px] m-[10px] group font-[700]'>
+              <img className=' rounded-[50%] w-[45px] border-[3px] border-[gold] h-[45px]' src={userData.profile_picture} alt="" />
+              <h2 className=' group-hover:underline text-[15px] text-[gold] font-[600]'>{userData.username}</h2>
             </div>
             }
-            <Link to={'/'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Home</li></Link>
+           
+            {
+              useruid === ""
+              ?  <li onClick={handleLogin} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[green] rounded-[10px] font-[700]'>Login</li>
+              : <div className="">
+ <Link to={'/'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Home</li></Link>
             <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Products</li>
             <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Notification</li>
             <Link to={'/Orders'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>My Order</li></Link>
             <Link to={'/CartPage'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Cart</li></Link>
-            {
-              useruid === ""
-              ?  <li onClick={handleLogin} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[red] rounded-[10px] font-[700]'>Login</li>
-              :  <li onClick={handleLogout} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[red] rounded-[10px] font-[700]'>Logout</li>
+                <li onClick={handleLogout} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[red] rounded-[10px] font-[700]'>Logout</li>
+              </div>  
             }
           </ul>
         </div>
         :
         <div className="fixed w-[200px] sm:w-[300px] md:w-[400px] 2xl:w-[600px] h-[100%] bg-[#fff] duration-300 right-[-60%] top-0 z-[999]">
-          <h2>hello12</h2>
-        </div>
+        
+        <ul className='w-[100%] mt-[60px]'>
+        {
+            useruid === ""
+          ? <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] flex justify-between font-[700]'>Nice to meet you.will you be my friend</li>
+          : <div className=' bg-[#081939] cursor-pointer py-[30px] gap-[10px] items-center font-sans h-[50px] flex text-[22px] px-[20px] rounded-[10px] m-[10px] group font-[700]'>
+            <img className=' rounded-[50%] w-[45px] border-[3px] border-[gold] h-[45px]' src={userData.profile_picture} alt="" />
+            <h2 className=' group-hover:underline text-[15px] text-[gold] font-[600]'>{userData.username}</h2>
+          </div>
+          }
+         
+          {
+            useruid === ""
+            ?  <li onClick={handleLogin} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[green] rounded-[10px] font-[700]'>Login</li>
+            : <div className="">
+<Link to={'/'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Home</li></Link>
+          <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Products</li>
+          <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Notification</li>
+          <Link to={'/Orders'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>My Order</li></Link>
+          <Link to={'/CartPage'}><li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Cart</li></Link>
+              <li onClick={handleLogout} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[red] rounded-[10px] font-[700]'>Logout</li>
+            </div>  
+          }
+        </ul>
+      </div>
       }
-      <div ref={SupportRef} className="  support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[999] bottom-[20px] right-[20px]">
+      {/* <div ref={SupportRef} className="  support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[999] bottom-[20px] right-[20px]">
         <icon className='text-[30px] font-[700] text-[red]'>{SupportShow === true ? <MdClose /> : <BiSupport />}</icon>
       </div>
       {
@@ -208,7 +234,8 @@ const Menu = () => {
             </div>
           </div>
 
-      }
+      } */}
+      <div className=" md:hidden z-[990] fixed bottom-0 left-0 w-[100%] h-[50px] bg-[#081939] "></div>
     </section>
   )
 }

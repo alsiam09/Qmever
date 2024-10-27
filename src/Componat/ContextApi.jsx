@@ -27,7 +27,7 @@ const ContextApi = ({ children }) => {
 
   const handleScroll = () => {
     
-    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight && !loading) {      
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 20 && !loading) {      
       setPage(prevPage => prevPage + 1);
     } else{
 
@@ -48,7 +48,7 @@ const ContextApi = ({ children }) => {
       {children}
       {loading && <div className=" container mx-auto ">
         <div className=" my-[40px] ">
-                <SkeletonTheme className='' baseColor="#202020" highlightColor="#444">
+                <SkeletonTheme className='' baseColor="#d4d4d4" highlightColor="#444">
     <p>
       <Skeleton count={3} />
     </p>
