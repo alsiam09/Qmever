@@ -213,26 +213,26 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="details w-[100%] lg:w-[43%]">
-            <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>{info.Prodectname}</h2>
-            <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{modlePrice !== "" ? modlePrice : info.Price}৳</span></h2>
-            <h2 className='text-[#fff] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
+            <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>{info.Prodectname}</h2>
+            <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{modlePrice !== "" ? modlePrice : info.Price}৳</span></h2>
+            <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
 
             {
               info3 !== ""
                 ?
                 <div className="modles mb-[30px] flex-wrap flex gap-[10px]">
                   {info3.map((addModle, index) => (
-                    <h2 onClick={() => handleModel({ index, addModle })} className={` ${modelselect === true && "border-[red]"} flex border-[1px] py-[10px] px-[20px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model ? "bg-[#fff] text-[#000]" : "border-[#fff] text-[#fff]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
+                    <h2 onClick={() => handleModel({ index, addModle })} className={` ${modelselect === true && "border-[red]"} flex border-[1px] py-[10px] px-[20px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model ? "bg-[#000] text-[#fff]" : "border-[#000] text-[#000]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
                   ))}
                 </div>
                 : ""
             }
             <div className="BTnCaBy flex gap-[10px] w-[100%]">
-              <h2 onClick={handleBuyNow} className='cursor-pointer text-[#000] bg-[#fff] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>Buy Now</h2>
-              <h2 onClick={handleAddTocart} className='cursor-pointer text-[#000] bg-[#fff] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>{addsucess === true ? <h2 className='text-[24px] text-[#188918]'><IoCheckmarkDoneCircle /></h2> : <h2>Add To Cart</h2>} </h2>
+              <h2 onClick={handleBuyNow} className='cursor-pointer text-[gold] bg-[#081939] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>Buy Now</h2>
+              <h2 onClick={handleAddTocart} className='cursor-pointer text-[gold] bg-[#081939] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>{addsucess === true ? <h2 className='text-[24px] text-[#188918]'><IoCheckmarkDoneCircle /></h2> : <h2>Add To Cart</h2>} </h2>
             </div>
             <div className="description mt-[50px] border-t-[2px] border-t-[#fff]">
-              <p className='text-[#ffffffa4] text-[16px] font-[400] my-[30px]'>{info.description}</p>
+              <p className='text-[#000000a4] text-[16px] font-[400] my-[30px]'>{info.description}</p>
               <iframe className=' w-[100%] sm:h-[315px]' src={info.VideoURL} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
           </div>

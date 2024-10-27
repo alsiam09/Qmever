@@ -131,10 +131,10 @@ const Menu = () => {
   return (
     <section>
       <section className='w-[100%] h-[60px] sm:h-[70px] md:h-[80px]'>
-        <div className=' z-[999] px-[10px] bg-[#000] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
+        <div className=' z-[999] px-[10px] bg-[#081939] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
-            <h1 className='text-[#ff1586] uppercase text-[30px] font-[700]'>rupkotha</h1>
+            <h1 className='text-[gold] uppercase text-[30px] font-[700]'>rupkotha</h1>
             </div>
             <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
               <icon className='text-[38px] text-[#ff1586]' ><FaBars /></icon>
