@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BuyProDucts from '../Componat/BuyProDucts';
 import UserContact from '../Componat/UserContact';
-import { getDatabase, ref, set , onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import { removeAllcartPro } from '../Componat/slice/AllSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,54 +10,100 @@ const CheckOut = () => {
   const db = getDatabase();
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let userUid = useSelector((item)=>item.counter.user)
+  let userUid = useSelector((item) => item.counter.user)
   const BuyItem = useSelector((item) => item.counter.BuyItem);
-  const cartItem = useSelector((item)=> item.counter.cartItem)
+  const cartItem = useSelector((item) => item.counter.cartItem)
   console.log(cartItem);
-  
-  let [ userDelivery , setuserDelivery ] = useState({})
+
+  let [userDelivery, setuserDelivery] = useState({})
   const [SendOTP, setSendOTP] = useState(false);
 
 
   console.log(BuyItem);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     const starCountRef = ref(db, 'users/' + userUid);
     onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val().Delivery_address;
-        setuserDelivery(data)            
-      });
-  },[db])
+      const data = snapshot.val().Delivery_address;
+      setuserDelivery(data)
+    });
+  }, [db])
 
   const HandleSendOTP = () => {
-      try {
-        set(ref(db, 'orders/' + `${userUid}/` + 1 ), {
-          orderId : 1,
-          customer : userDelivery,
-          orderItem : { BuyItem , orderStatus : "Placed"},
-          
-        })
-        .then(()=>{
-          dispatch(removeAllcartPro(cartItem))
-          console.log("ok");
+    const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
+
+    const isValidPhoneNumber = (phone) => phone && phoneRegex.test(phone);
+    const isNotEmpty = (value) => value !== "" && value !== undefined;
+
+    let valid = true;
+
+    if (!isValidPhoneNumber(userDelivery.Phone_Number)) {
+      valid = false;
+      console.log("Invalid phone number");
+    } else {
+      console.log("PHOK");
+    }
+
+    if (!isNotEmpty(userDelivery.Division)) {
+      valid = false;
+      console.log("Division is required");
+    } else {
+      console.log("DIOK");
+    }
+
+    if (!isNotEmpty(userDelivery.City)) {
+      valid = false;
+      console.log("City is required");
+    } else {
+      console.log("CIOK");
+    }
+
+    if (!isNotEmpty(userDelivery.local_address)) {
+      valid = false;
+      console.log("Local address is required");
+    } else {
+      console.log("LOOK");
+    }
+
+    if (!isNotEmpty(userDelivery.username)) {
+      valid = false;
+      console.log("Username is required");
+    } else {
+      console.log("USOK");
+    }
+
+    if (!valid) {
+      return;
+    }
+
+    try {
+      set(ref(db, 'orders/' + `${userUid}/` + 1), {
+        orderId: 1,
+        customer: userDelivery,
+        orderItem: { BuyItem, orderStatus: "Placed" },
+      })
+        .then(() => {
+          dispatch(removeAllcartPro(cartItem));
+          console.log("Order placed successfully");
           setTimeout(() => {
-            navigate("/orders")
+            navigate("/orders");
           }, 200);
-          
-        })
-      } catch (error) {
-        console.log("error");
-        
-      }
+        });
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+
   };
 
   const OTPINPUT = (e) => {
   };
 
   const handleVerifyOTP = async () => {
-    
+
   };
 
+  
+    
   return (
     <section>
       <div className="container px-[10px] my-[30px] mx-auto flex flex-wrap">

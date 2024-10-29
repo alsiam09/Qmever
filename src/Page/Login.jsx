@@ -36,10 +36,10 @@ const Login = () => {
             <img className=' absolute top-[50px] w-[300px] h-[300px]' src="https://i.ibb.co.com/42kqS9s/Picsart-24-09-13-20-42-41-421.png" alt="" />
           </div>
           <div className="welcome relative text-center ">
-            <h1 className='  text-[#fff] text-[30px] sm:text-[40px] md:text-[50px] lg:text-[60px] font-[700] font-sans'>Welcome to Rupkotha</h1>
-            <h2 className='text-[#fff] text-[30px] sm:text-[40px] md:text-[50px] lg:text-[60px] font-[700] font-sans'>Dear {userData.username}</h2>
+            <h1 className='  text-[#000] text-[30px] sm:text-[40px] md:text-[50px] lg:text-[60px] font-[700] font-sans'>Welcome to Rupkotha</h1>
+            <h2 className='text-[#000] text-[30px] sm:text-[40px] md:text-[50px] lg:text-[60px] font-[700] font-sans'>Dear {userData.username}</h2>
           </div>
-          <h2 onClick={Join} className='px-[20px] py-[7px] absolute bottom-[50px] left-[50%] translate-x-[-50%] bg-[#43af43] text-[18px] text-[#fff] font-[600] rounded-[10px] uppercase ' >Join Now</h2>
+          <h2 onClick={Join} className='px-[20px] py-[7px] absolute bottom-[60px] left-[50%] translate-x-[-50%] bg-[#43af43] text-[18px] text-[#fff] font-[600] rounded-[10px] uppercase ' >Join Now</h2>
         </div>
       </div>
     </section>
