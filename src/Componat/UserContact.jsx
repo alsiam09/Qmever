@@ -47,9 +47,9 @@ const UserContact = ({ userDelivery }) => {
             local_address: userAddressup === "" ? userDelivery.local_address : userAddressup,
             email: userDelivery.email,
             Division: userDivisionup === "" ? userDelivery.Division : userDivisionup,
-            District: userCityup === "" ? userDelivery.City : userCityup,
-            upazila:"",
-            unions:"",
+            District: userCityup === "" ? userDelivery.District : userCityup,
+            upazila: userupazilaup === "" ? userDelivery.upazila : userupazilaup,
+            unions: userunionsup === "" ? userDelivery.unions : userunionsup ,
         })
             .then(() => {
                 console.log(userDelivery);
@@ -5260,7 +5260,7 @@ const UserContact = ({ userDelivery }) => {
                             <input value={userDivisionup} placeholder={`${userDelivery.Division}`} onChange={HandleDivision} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
                         </div>
                         <div className="District justify-between my-[10px]">
-                        <h4 ref={selectDisRef} className=' rounded-[10px] text-[gold] px-[20px] bg-[#081939] text-[15px] py-[10px] font-[600] md:text-[20px] lg:text-[26px] font-sans flex justify-between items-center '><h5> Select Your Disision</h5><h5 className='pt-[3px]'>{DisSelect === true ?<h5 className=''><IoIosArrowUp /></h5>: <h5 className=''><IoIosArrowDown /></h5> }</h5></h4>
+                        <h4 ref={selectDisRef} className=' rounded-[10px] text-[gold] px-[20px] bg-[#081939] text-[15px] py-[10px] font-[600] md:text-[20px] lg:text-[26px] font-sans flex justify-between items-center '><h5> Select Your District</h5><h5 className='pt-[3px]'>{DisSelect === true ?<h5 className=''><IoIosArrowUp /></h5>: <h5 className=''><IoIosArrowDown /></h5> }</h5></h4>
                             {DisSelect === true ?
                             district.map((item, index) => (
                                 <h5 onClick={() => HandleDis({item , index})} className={` px-[20px] py-[20px] my-[3px] bg-[#f4f4f4] ${item.division_id === indexArea ? "block" : "hidden"} w-[100%] h-[30px] flex justify-end items-center my-[1px]`} >{item.name}</h5>
@@ -5268,7 +5268,7 @@ const UserContact = ({ userDelivery }) => {
                             :
                             ""
                             }
-                            <input value={userCityup} placeholder={`${userDelivery.City}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
+                            <input value={userCityup} placeholder={`${userDelivery.District}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
                         </div>
                         <div className="District justify-between my-[10px]">
                         <h4 ref={selectupaRef} className=' rounded-[10px] text-[gold] px-[20px] bg-[#081939] text-[15px] py-[10px] font-[600] md:text-[20px] lg:text-[26px] font-sans flex justify-between items-center '><h5> Select Your upazila</h5><h5 className='pt-[3px]'>{upaSelect === true ?<h5 className=''><IoIosArrowUp /></h5>: <h5 className=''><IoIosArrowDown /></h5> }</h5></h4>
@@ -5279,7 +5279,7 @@ const UserContact = ({ userDelivery }) => {
                             :
                             ""
                             }
-                            <input value={userupazilaup} placeholder={`${userDelivery.City}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
+                            <input value={userupazilaup} placeholder={`${userDelivery.upazila}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
                         </div>
                         <div className="District justify-between my-[10px]">
                         <h4 ref={selectuniRef} className=' rounded-[10px] text-[gold] px-[20px] bg-[#081939] text-[15px] py-[10px] font-[600] md:text-[20px] lg:text-[26px] font-sans flex justify-between items-center '><h5> Select Your union</h5><h5 className='pt-[3px]'>{uniSelect === true ?<h5 className=''><IoIosArrowUp /></h5>: <h5 className=''><IoIosArrowDown /></h5> }</h5></h4>
@@ -5290,7 +5290,7 @@ const UserContact = ({ userDelivery }) => {
                             :
                             ""
                             }
-                            <input value={userunionsup} placeholder={`${userDelivery.City}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
+                            <input value={userunionsup} placeholder={`${userDelivery.unions}`} onChange={HandleCity} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
                         </div>
                         <div className="localAddress justify-between my-[10px]">
                             <h2 className='text-[#000] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your local Address :</h2>

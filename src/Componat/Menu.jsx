@@ -68,7 +68,9 @@ const Menu = () => {
               email: user.email,
               Phone_Number : `${userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number :""}`,
               Division : `${userDelivery.Division !== "" ? userDelivery.Division :""}`,
-              City : `${userDelivery.City !== "" ? userDelivery.City :""}`,
+              District : `${userDelivery.District !== "" ? userDelivery.District :""}`,
+              unions : `${userDelivery.unions !== "" ? userDelivery.unions :""}`,
+              upazila : `${userDelivery.upazila !== "" ? userDelivery.upazila :""}`,
               local_address : `${userDelivery.local_address !== "" ? userDelivery.local_address :""}`,
             }
           });
