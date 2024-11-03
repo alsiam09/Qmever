@@ -10,7 +10,6 @@ const UserContact = ({ userDelivery }) => {
     const selectupaRef = useRef();
     const selectuniRef = useRef();
     let userUid = useSelector((item) => item.counter.user)
-    let [Edit, setEdit] = useState(false)
     let [DivSelect, SetDivSelect] = useState(false)
     let [DisSelect, SetDisSelect] = useState(false)
     let [upaSelect, SetupaSelect] = useState(false)
@@ -36,9 +35,7 @@ const UserContact = ({ userDelivery }) => {
         setuserDivision(userDelivery.Division)
         setuserAddress(userDelivery.local_address)
     }, [userDelivery, db])
-    let HandleEdit = () => {
-        setEdit(true)
-    }
+
 
     let Handleupload = () => {
         set(ref(db, 'users/' + `${userUid}/` + 'Delivery_address/'), {
@@ -5236,9 +5233,7 @@ const UserContact = ({ userDelivery }) => {
     })
     return (
         <div className="contact w-[100%] md:w-[60%]">
-            {
-                Edit === true
-                    ? <div className="yourCon w-[100%]">
+    <div className="yourCon w-[100%]">
                         <div className="Name justify-between my-[10px]">
                             <h2 className='text-[#000] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Name :</h2>
                             <input placeholder={`${userDelivery.username}`} onChange={HandleName} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
@@ -5285,7 +5280,7 @@ const UserContact = ({ userDelivery }) => {
                         <h4 ref={selectuniRef} className=' rounded-[10px] text-[gold] px-[20px] bg-[#081939] text-[15px] py-[10px] font-[600] md:text-[20px] lg:text-[26px] font-sans flex justify-between items-center '><h5> Select Your union</h5><h5 className='pt-[3px]'>{uniSelect === true ?<h5 className=''><IoIosArrowUp /></h5>: <h5 className=''><IoIosArrowDown /></h5> }</h5></h4>
                             {uniSelect === true ?
                             unions.map((item , index) => (
-                                <h5 onClick={() => HandleUni({item , index})} className={` px-[20px] py-[20px] my-[3px] bg-[#f4f4f4] ${item.upazilla_id === upazilsID ?"block": "hidden" }  w-[100%] h-[30px] flex justify-end items-center my-[1px]`} >{item.name}</h5>
+                                <h5 onClick={() => HandleUni({item , index})} className={` px-[20px] py-[20px] my-[3px] bg-[#f4f4f4] ${item.upazilla_id === upazilsID ?"block": "hidden" }  w-[100%] h-[30px] flex justify-end items-center my-[1px]`} >{item.name} </h5>
                             ))
                             :
                             ""
@@ -5296,41 +5291,13 @@ const UserContact = ({ userDelivery }) => {
                             <h2 className='text-[#000] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your local Address :</h2>
                             <input placeholder={`${userDelivery.local_address}`} onChange={HandleAddress} type="text" className='text-[#000] bg-[#fff] px-[10px] w-[100%] h-[50px] outline-none border-b-[2px] border-b-[#ffffff91]' />
                         </div>
-                    </div>
-                    : <div className="yourCon w-[100%]">
-                        <div className="Name my-[10px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Name :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.username}</h2>
-                        </div>
-                        <div className="Name my-[30px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your email :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.email}</h2>
-                        </div>
-                        <div className="Name my-[30px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Phone Number :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number : undefended}</h2>
-                        </div>
-                        <div className="Name my-[30px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your Division :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.Division !== "" ? userDelivery.Division : undefended}</h2>
-                        </div>
-                        <div className="Name my-[30px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your City :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.City !== "" ? userDelivery.City : undefended}</h2>
-                        </div>
-                        <div className="Name my-[30px]">
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>Your local Address :</h2>
-                            <h2 className='text-[#000] my-[5px] text-[15px] md:text-[20px] lg:text-[26px] font-sans'>{userDelivery.local_address !== "" ? userDelivery.local_address : undefended}</h2>
+                        <div className="my-[20px]">
+                            <h4 onClick={Handleupload} className='py-[7px] text-[#fff] text-[15px] md:text-[18px] uppercase md:h-[50px] bg-[#169416] hover:bg-[#081939] rounded flex justify-center items-center'>upload you address</h4>
                         </div>
                     </div>
-            }
+    
             <div className="btn w-[100%] my-[20px] flex justify-between">
-                {
-                    Edit === false && <h2 onClick={HandleEdit} className='w-[100px] sm:w-[150px] sm:h-[40px] sm:text-[20px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[16px]' >Edit</h2>
-                }
-                {
-                    Edit === true && <h2 onClick={Handleupload} className='w-[100px] sm:w-[150px] sm:h-[40px] sm:text-[20px] h-[40px] bg-[#139e13] text-[#fff] rounded flex justify-center items-center text-[16px]' >upload</h2>
-                }
+                
             </div>
         </div>
     )

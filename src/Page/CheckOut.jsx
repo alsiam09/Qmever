@@ -30,6 +30,7 @@ const CheckOut = () => {
   }, [db, userUid]);
 
   const HandleSendOTP = async () => {
+    
     const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
     
     if (!phoneRegex.test(userDelivery.Phone_Number)) {
@@ -48,7 +49,7 @@ const CheckOut = () => {
 
   const handleVerifyOTP = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/verify-otp', { to: phoneNumber, otp: otpInput });
+      const response = await axios.post('https://serverrupkotha.onrender.com/verify-otp', { to: phoneNumber, otp: otpInput });
       if (response.data.success) {
         console.log("OTP verified successfully");
         // Proceed with placing the order
