@@ -33,7 +33,8 @@ const Banner = () => {
       };
   return (
     <section className=' px-[10px] py-[20px]'>
-        <div className="container mx-auto">
+        <div className="container flex mx-auto">
+      <div className="w-[80%]">
         <Slider {...settings}>
             <div className="imgBox w-[100%]">
                 <img className=' rounded-[20px] w-[100%]' src="https://i.ibb.co.com/SVdpv68/Green-and-Yellow-Simple-Clean-Shoes-Sale-Banner.png" alt="" />
@@ -42,6 +43,8 @@ const Banner = () => {
                 <img className=' rounded-[20px] w-[100%]' src="https://i.ibb.co.com/SVdpv68/Green-and-Yellow-Simple-Clean-Shoes-Sale-Banner.png" alt="" />
             </div>
     </Slider>
+    </div>
+    <img className='w-[20%] p-[10px] rounded-[20px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkNJRyKOaepOQlOOx_AjFJNEwZ4TtQn-5sLNdlctaf2tYa5xMBfUj2P2nBvb4_qu33w38&usqp=CAU" alt="" />
         </div>
     </section>
   )

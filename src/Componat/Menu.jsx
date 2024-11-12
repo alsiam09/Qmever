@@ -1,17 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FaBars } from "react-icons/fa";
-import { BiSupport } from "react-icons/bi";
-import { IoLogoWhatsapp } from "react-icons/io";
-import { MdEmail, MdClose, MdCall } from "react-icons/md";
+
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut , signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout, userUidLogin } from './slice/AllSlice';
 
+import { IoSearchOutline , IoCloseOutline  } from "react-icons/io5";
+import { apiData } from './ContextApi';
 
 const Menu = () => {
   let userLoginUid = useSelector((item)=>item.counter.user)
+  let ItemApiData = useContext(apiData)
   let [ userData , setUserdata ] = useState([])
   let dispatch = useDispatch()
   let navigate = useNavigate()
@@ -130,16 +131,39 @@ const Menu = () => {
         setuserDelivery(data)        
       });
   },[db])
+  const [search, setSearch] = useState("");
+
+
+  const handleSearch = (e) => {
+      setSearch(e.target.value); 
+      
+  };
+  const GoSearchEnter = (e) => {
+    if (e.key === "Enter") {
+    navigate(`/search_query?query=${encodeURIComponent(search)}`)
+    }
+  }
+  let GoSearchPage = () => {
+    navigate(`/search_query?query=${encodeURIComponent(search)}`)
+  }
+  let valueDelet = () => {
+    setSearch("")
+  }
   return (
     <section>
       <section className='w-[100%] h-[60px] sm:h-[70px] md:h-[80px]'>
-        <div className=' z-[999] px-[10px] bg-[#081939] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
+        <div className=' z-[999] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
-            <h1 className='text-[gold] uppercase text-[30px] font-[700]'>rupkotha</h1>
+            <h1 className='text-[#fff] uppercase text-[30px] font-[700]'>rupkotha</h1>
+            </div>
+            <div className="Search  flex md:top-[50%] relative md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%] md:absolute">
+              <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[600px] px-[20px] outline-none rounded-l-[5px] h-[50px] sm:h-[30px] md:h-[40px] text-[#000000a9] ' placeholder='Search Rupkotha' />
+              <h5 onClick={valueDelet} className={` ${search !== "" ? "block" : "hidden"} h-[50px] sm:h-[30px] md:h-[40px] w-[40px] top-0 right-[10%] absolute z-[999] rounded-[50%] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer`} ><IoCloseOutline/></h5>
+              <h5 onClick={GoSearchPage} className='h-[50px] sm:h-[30px] md:h-[40px] w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
             </div>
             <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
-              <icon className='text-[38px] text-[gold]' ><FaBars /></icon>
+              <icon className='text-[38px] text-[#fff]' ><FaBars /></icon>
             </div>
           </div>
         </div>
@@ -151,7 +175,7 @@ const Menu = () => {
           {
               useruid === ""
             ? <li className=' font-sans text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] flex justify-between font-[700]'>Nice to meet you.will you be my friend</li>
-            : <div className=' bg-[#081939] cursor-pointer py-[30px] gap-[10px] items-center font-sans h-[50px] flex text-[22px] px-[20px] rounded-[10px] m-[10px] group font-[700]'>
+            : <div className=' bg-[#062919] cursor-pointer py-[30px] gap-[10px] items-center font-sans h-[50px] flex text-[22px] px-[20px] rounded-[10px] m-[10px] group font-[700]'>
               <img className=' rounded-[50%] w-[45px] border-[3px] border-[gold] h-[45px]' src={userData.profile_picture} alt="" />
               <h2 className=' group-hover:underline text-[15px] text-[gold] font-[600]'>{userData.username}</h2>
             </div>
