@@ -58,8 +58,8 @@ const Menu = () => {
             email: user.email,
             profile_picture: user.photoURL,
             uid: user.uid,
-            gender:"",
-            dateOfBirth :"",
+            gender: `${user.gender !== "" ? user.gender : ""}`,
+            dateOfBirth :`${user.dateOfBirth !== "" ? user.dateOfBirth : ""}`,
             Delivery_address:{
               username: user.displayName,
               email: user.email,
@@ -109,6 +109,9 @@ const Menu = () => {
     });
   }
   useEffect(()=>{
+
+  },[useruid])
+  useEffect(()=>{
     userLoginUid.map((useruid)=>{
       return onValue(ref(db, '/users/' + useruid), (snapshot) => {
         const userDetails = snapshot.val()
@@ -119,7 +122,7 @@ const Menu = () => {
 
     })
 
-  },[userLoginUid])
+  },[userLoginUid , useruid])
   useEffect(()=>{
     const starCountRef = ref(db, 'users/' + userLoginUid);
     onValue(starCountRef, (snapshot) => {
@@ -145,14 +148,16 @@ const Menu = () => {
   let valueDelet = () => {
     setSearch("")
   }
+  
   return (
     <section>
       <section className='w-[100%] h-[100px] sm:h-[120px] '>
             {
-              userData.gender === "" || userData.dateOfBirth === ""
+               userData.gender === "" || userData.dateOfBirth === ""
               ?
               <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
               <div className=" relative rounded w-[60%] h-[50%] p-[20px] flex flex-wrap bg-[#fff] ">
+                <h5 className=''></h5>
                 <div className=" w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
                   <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
                   <h5 className='text-[#cf0cbf] text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
