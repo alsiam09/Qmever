@@ -6,6 +6,7 @@ import { getAuth, signOut , signInWithPopup, GoogleAuthProvider } from "firebase
 import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout, userUidLogin } from './slice/AllSlice';
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 
 import { IoSearchOutline , IoCloseOutline  } from "react-icons/io5";
 import { apiData } from './ContextApi';
@@ -47,23 +48,18 @@ const Menu = () => {
   let handleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-        // setDBemail(user.email);
-        // Setname(user.displayName);
-        // Setimg(user.photoURL);
-        // setuserId(user.uid);
+
         if (user !== null) {
           set(ref(db, 'users/' + user.uid), {
             username: user.displayName,
             email: user.email,
             profile_picture: user.photoURL,
             uid: user.uid,
+            gender:"",
+            dateOfBirth :"",
             Delivery_address:{
               username: user.displayName,
               email: user.email,
@@ -84,7 +80,7 @@ const Menu = () => {
         }
       })
       .then(() => {
-        navigate('/Login')
+        navigate('/')
       })
       .catch((error) => {
         // Handle Errors here.
@@ -151,16 +147,41 @@ const Menu = () => {
   }
   return (
     <section>
-      <section className='w-[100%] h-[60px] sm:h-[70px] md:h-[80px]'>
+      <section className='w-[100%] h-[100px] sm:h-[120px] '>
+            {
+              userData.gender === "" || userData.dateOfBirth === ""
+              ?
+              <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
+              <div className=" relative rounded w-[60%] h-[50%] p-[20px] flex flex-wrap bg-[#fff] ">
+                <div className=" w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
+                  <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
+                  <h5 className='text-[#cf0cbf] text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
+                  <h5 className='text-[#cf0cbf] flex text-center text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
+                </div>
+                <div className="w-[30%] pl-[20px]">
+                  <h5 className=" bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] ">Sex <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
+                  <div className="dateOfBirth mt-[7px] flex gap-1 justify-between">
+                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Day</h5>
+                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Month</h5>
+                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Year</h5>
+                </div>
+                <div className="absolute bottom-[20px] right-[20px]">
+                  <h5 className='px-[20px] py-[3px] bg-[#062919] text-[17px] cursor-pointer flex justify-center rounded text-[#fffdf8]'>Done</h5>
+                </div>
+              </div>
+            </div>
+            </div>
+              :""
+            }
         <div className=' z-[999] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
             <h1 className='text-[#fff] uppercase text-[30px] font-[700]'>rupkotha</h1>
             </div>
-            <div className="Search  flex md:top-[50%] relative md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%] md:absolute">
-              <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[600px] px-[20px] outline-none rounded-l-[5px] h-[50px] sm:h-[30px] md:h-[40px] text-[#000000a9] ' placeholder='Search Rupkotha' />
-              <h5 onClick={valueDelet} className={` ${search !== "" ? "block" : "hidden"} h-[50px] sm:h-[30px] md:h-[40px] w-[40px] top-0 right-[10%] absolute z-[999] rounded-[50%] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer`} ><IoCloseOutline/></h5>
-              <h5 onClick={GoSearchPage} className='h-[50px] sm:h-[30px] md:h-[40px] w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
+            <div className="Search my-[10px] lg:my-[0px] w-[100%] lg:w-[50%] h-[40px] justify-center flex lg:top-[50%] relative lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:absolute">
+              <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[100%] px-[20px] outline-none rounded-l-[5px] h-[40px]  text-[#000000a9] ' placeholder='Search Rupkotha' />
+              <h5 onClick={valueDelet} className={` ${search !== "" ? "block" : "hidden"} h-[40px] w-[40px] top-0 right-[15%] lg:right-[10%] absolute z-[999] rounded-[50%] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer`} ><IoCloseOutline/></h5>
+              <h5 onClick={GoSearchPage} className='h-[40px] w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
             </div>
             <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
               <icon className='text-[38px] text-[#fff]' ><FaBars /></icon>
