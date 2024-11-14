@@ -441,45 +441,6 @@ const Menu = () => {
         </ul>
       </div>
       }
-      {/* <div ref={SupportRef} className="  support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[999] bottom-[20px] right-[20px]">
-        <icon className='text-[30px] font-[700] text-[red]'>{SupportShow === true ? <MdClose /> : <BiSupport />}</icon>
-      </div>
-      {
-        SupportShow === true
-          ?
-          <div className=" duration-300">
-
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center duration-300 w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[998] bottom-[110px] right-[20px]">
-              <a href="https://api.whatsapp.com/send?phone=01813904257">
-                <icon className='text-[30px] font-[700] text-[#0bd80b]'><IoLogoWhatsapp /></icon>
-              </a>
-            </div>
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center duration-300 w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[998] bottom-[20px] right-[110px]">
-              <a href="tel:+8801813904257">
-                <icon className='text-[30px] font-[700] text-[#000]'><MdCall /></icon>
-              </a>
-            </div>
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center duration-300 w-[60px] h-[60px] rounded-[50%] bg-[#fff] fixed z-[998] bottom-[80px] right-[80px]">
-              <a href="mailto:rupkotha.official.bd@gmail.com">
-                <icon className='text-[30px] font-[700] text-[#ff9a17]'><MdEmail /></icon>
-              </a>
-            </div>
-          </div>
-          :
-          <div className="">
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] duration-300 rounded-[50%] bg-[#fff] fixed  z-[999] bottom-[20px] right-[20px]">
-              <icon className='text-[30px] font-[700] text-[red]'><BiSupport /></icon>
-            </div>
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] duration-300 rounded-[50%] bg-[#fff] fixed  z-[999] bottom-[20px] right-[20px]">
-              <icon className='text-[30px] font-[700] text-[red]'><BiSupport /></icon>
-            </div>
-            <div ref={SupportRef} className=" support border-[3px] border-[#000] flex justify-center items-center w-[60px] h-[60px] duration-300 rounded-[50%] bg-[#fff] fixed  z-[999] bottom-[20px] right-[20px]">
-              <icon className='text-[30px] font-[700] text-[red]'><BiSupport /></icon>
-            </div>
-          </div>
-
-      } */}
-      <div className=" md:hidden z-[990] fixed bottom-0 left-0 w-[100%] h-[50px] bg-[#081939] "></div>
     </section>
   )
 }
