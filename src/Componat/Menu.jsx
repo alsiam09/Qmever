@@ -14,6 +14,8 @@ import { apiData } from './ContextApi';
 const Menu = () => {
   let userLoginUid = useSelector((item)=>item.counter.user)
   let ItemApiData = useContext(apiData)
+  console.log(userLoginUid);
+  
   let [ userData , setUserdata ] = useState([])
   let dispatch = useDispatch()
   let navigate = useNavigate()
@@ -25,7 +27,19 @@ const Menu = () => {
   let SupportRef = useRef()
   let [MenuShow, setMenuShow] = useState(false)
   // let [SupportShow, setSuppoutShow] = useState(false)
+  let [ Year , setYear ] = useState([])
   let [ useruid , setUseruid ] = useState('')
+  let [ SEXSelet , setSEXSelet ] = useState(false)
+  let [ DaySelet , setDaySelet ] = useState(false)
+  let [ MounthSelet , setMounthSelet ] = useState(false)
+  let [ YearSelet , setYearSelet ] = useState(false)
+  let [ userSEXdata , setuserSEXdata ] = useState({})
+  let [ userDaydata , setuserDaydata ] = useState({})
+  let [ userMounthdata , setuserMounthdata ] = useState({})
+  let [ userYeardata , setuserYeardata ] = useState('')
+  let [ mounth_id_CODE , setmounth_id_CODE ] = useState('')
+
+  
   useEffect(()=>{
     userLoginUid.map((item)=>{
       setUseruid(item);
@@ -43,7 +57,15 @@ const Menu = () => {
     return () => document.removeEventListener("click", HandleCon)
 
   })
-  
+  useEffect(() => {
+    const yearArray = [];
+    for (let i = 2024 ; i > 1900; i--) {
+      yearArray.push(i); // Push the year directly
+    }
+    setYear(yearArray); // Set the state
+  }, []); // Empty dependency array, so this runs only once after the component mounts
+
+  console.log(Year); 
   
   let handleLogin = () => {
     signInWithPopup(auth, provider)
@@ -58,8 +80,8 @@ const Menu = () => {
             email: user.email,
             profile_picture: user.photoURL,
             uid: user.uid,
-            gender: `${user.gender !== "" ? user.gender : ""}`,
-            dateOfBirth :`${user.dateOfBirth !== "" ? user.dateOfBirth : ""}`,
+            gender: `${userData.gender !== "" ? userData.gender : ""}`,
+            dateOfBirth :`${userData.dateOfBirth !== "" ? userData.dateOfBirth : ""}`,
             Delivery_address:{
               username: user.displayName,
               email: user.email,
@@ -148,35 +170,207 @@ const Menu = () => {
   let valueDelet = () => {
     setSearch("")
   }
+  let sex = [
+    {"Gender":"Male" , "Main_category": "man" },
+    {"Gender":"Female" , "Main_category": "woman" },
+    {"Gender":"Transgender" , "Main_category": "transgender" },
+  ]
+
+  let Day = [
+    {"day":"01" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"02" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"03" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"04" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"05" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"06" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"07" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"08" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"09" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"10" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"11" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"12" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"13" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"14" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"15" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"16" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"17" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"18" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"19" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"20" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"21" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"22" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"23" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"24" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"25" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"26" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"27" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"28" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"29" , "mounth_id":"0" , "January":"January" , "February":"February" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"30" , "mounth_id":"0" , "January":"January" , "March":"March" , "April":"April" , "May":"May" , "June":"June" , "July":"July" , "August":"August" , "September":"September" , "October":"October" , "November":"November" , "December":"December"},
+    {"day":"31" , "mounth_id":"0" , "January":"January" , "March":"March" , "May":"May" , "July":"July" , "August":"August" , "October":"October" , "December":"December"},
+  ]
+
+  console.log(Day);
+  
+
+  let Mounth = [
+    {"mounth":"January" , "mounth_id":"0" , "mounth_level":"01" },
+    {"mounth":"February" , "mounth_id":"1" , "mounth_level":"02" },
+    {"mounth":"March" , "mounth_id":"2" , "mounth_level":"03" },
+    {"mounth":"April" , "mounth_id":"3" , "mounth_level":"04" },
+    {"mounth":"May" , "mounth_id":"4" , "mounth_level":"05" },
+    {"mounth":"June" , "mounth_id":"5" , "mounth_level":"06" },
+    {"mounth":"July" , "mounth_id":"6" , "mounth_level":"07" },
+    {"mounth":"August" , "mounth_id":"7" , "mounth_level":"08" },
+    {"mounth":"September" , "mounth_id":"8" , "mounth_level":"09"},
+    {"mounth":"October" , "mounth_id":"9" , "mounth_level":"10" },
+    {"mounth":"November" , "mounth_id":"10" , "mounth_level":"11" },
+    {"mounth":"December" , "mounth_id":"11" , "mounth_level":"12" },
+
+  ]
+
+  let handleSelectSEX = () => {
+    if (SEXSelet !== true) {
+      setSEXSelet(true)
+    }else{
+      setSEXSelet(false)
+    }
+  }
+
+  let handleSEX = (item) => {
+    setSEXSelet(false)
+    setuserSEXdata(item)
+  }
+  
+  let HandleSelectDay = () => {
+    
+  }
+  let handleDay = (item) => {
+    setuserDaydata(item)
+    setDaySelet(false)
+    setmounth_id_CODE(item)
+    
+  }
+  let HandleSelectMounth = () => {
+    
+  }
+  let handleMounth = (item) => {
+    setuserMounthdata(item)
+    setMounthSelet(false)
+    setDaySelet(true)
+  }
+  console.log();
+
+  let HandleSelectYear = () => {
+    if (YearSelet !== true) {
+      setYearSelet(true)
+    }else{
+      setYearSelet(false)
+    }
+  }
+  let handleYear = (item) => {
+    setuserYeardata(item)
+    setMounthSelet(true)
+    setYearSelet(false)
+  }
+  console.log(useruid);
+  
+  let handleupData = () => {
+    set(ref(db, 'users/' + useruid), {
+      username: userData.displayName,
+      email: userData.email,
+      profile_picture: userData.photoURL,
+      uid: userData.uid,
+      gender: userSEXdata  ,
+      dateOfBirth :`${userDaydata}/${userMounthdata}/${userYeardata}`,
+      Delivery_address:{
+        username: userData.displayName,
+        email: userData.email,
+        Phone_Number : `${userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number :""}`,
+        Division : `${userDelivery.Division !== "" ? userDelivery.Division :""}`,
+        District : `${userDelivery.District !== "" ? userDelivery.District :""}`,
+        unions : `${userDelivery.unions !== "" ? userDelivery.unions :""}`,
+        upazila : `${userDelivery.upazila !== "" ? userDelivery.upazila :""}`,
+        local_address : `${userDelivery.local_address !== "" ? userDelivery.local_address :""}`,
+      }
+    }).then(()=>{
+      console.log('OK');
+      
+    })
+}
+  console.log(userData.gender);
   
   return (
     <section>
       <section className='w-[100%] h-[100px] sm:h-[120px] '>
             {
-               userData.gender === "" || userData.dateOfBirth === ""
+               userData.gender === undefined || userData.dateOfBirth === undefined
               ?
               <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
               <div className=" relative rounded w-[60%] h-[50%] p-[20px] flex flex-wrap bg-[#fff] ">
-                <h5 className=''></h5>
                 <div className=" w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
                   <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
                   <h5 className='text-[#cf0cbf] text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
                   <h5 className='text-[#cf0cbf] flex text-center text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
                 </div>
-                <div className="w-[30%] pl-[20px]">
-                  <h5 className=" bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] ">Sex <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
-                  <div className="dateOfBirth mt-[7px] flex gap-1 justify-between">
-                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Day</h5>
-                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Month</h5>
-                  <h5 className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">Year</h5>
+                <div className="w-[30%]  pl-[20px]">
+                  <div className="relative">
+                  <h5 onClick={handleSelectSEX} className={` ${SEXSelet !== false ? "!bg-[#062919] text-[#fffdf8]" : "" } bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] `}>Sex {userSEXdata.Gender ? userSEXdata.Gender : "select"} <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
+                  {
+                    SEXSelet !== false
+                    ?
+                    <div className=" z-[901] absolute mt-[5px] left-[50%] translate-x-[-50%] bg-[#fff] w-[100%] ">
+                      {sex.map((item)=>(
+                        <h5 onClick={()=>handleSEX(item)} className='w-[100%] px-[20px] h-[30px] items-center my-[1px] bg-[#f3f3f3] flex justify-end text-[16px]' >{item.Gender}</h5>
+                      ))}
+                      </div>
+                    :""
+                  }
+                  </div>
+                  <div className="dateOfBirth relative mt-[7px] flex gap-1 justify-between">
+                 
+                  <h5 onClick={HandleSelectYear} className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">{userYeardata > 0 ? userYeardata : "Year"}</h5>
+                  {
+                    YearSelet !== false
+                    ?
+                    <div className=" absolute z-[900] h-[300px] overflow-scroll bg-[#fff]">
+                    {Year.map((item)=>(
+                      <h5 onClick={()=>handleYear(item)} className={` text-[#000] bg-[#f3f3f3] my-[1px] p-[6px] text-[16px]`} >{item}</h5>
+                    ))}
+                  </div>
+                    :""
+                  }
+                  <h5 onClick={HandleSelectMounth} className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">{userMounthdata.mounth ? userMounthdata.mounth_level : "Mounth"}</h5>
+                  {
+                    MounthSelet !== false
+                    ?
+                    <div className=" absolute z-[900] h-[300px] overflow-scroll bg-[#fff]">
+                    {Mounth.map((item)=>(
+                      <h5 onClick={()=>handleMounth(item)} className={` text-[#000] bg-[#f3f3f3] my-[1px] p-[6px] text-[16px]`} >{item.mounth}</h5>
+                    ))}
+                  </div>
+                    :""
+                  }
+                  <h5 onClick={HandleSelectDay} className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">{userDaydata.day ? userDaydata.day : "Day"}</h5>
+                  {
+                    DaySelet !== false
+                    ?
+                  <div className=" absolute z-[900] h-[300px] overflow-scroll bg-[#fff]">
+                    {Day.map((item)=>(
+                    <h5 onClick={()=>handleDay(item)} className={` ${item[userMounthdata.mounth] !== userMounthdata.mounth ? "hidden" : "block"} text-[#000] bg-[#f3f3f3] my-[1px] p-[6px] text-[16px]`} >{item.day}</h5>
+                  ))}
+                  </div>
+                    :""
+                  }
                 </div>
+                
                 <div className="absolute bottom-[20px] right-[20px]">
-                  <h5 className='px-[20px] py-[3px] bg-[#062919] text-[17px] cursor-pointer flex justify-center rounded text-[#fffdf8]'>Done</h5>
+                  <h5 onClick={handleupData} className='px-[20px] py-[3px] bg-[#062919] text-[17px] cursor-pointer flex justify-center rounded text-[#fffdf8]'>Done</h5>
                 </div>
               </div>
             </div>
             </div>
-              :""
+           :""
             }
         <div className=' z-[999] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
