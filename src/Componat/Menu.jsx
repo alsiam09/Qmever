@@ -38,7 +38,7 @@ const Menu = () => {
   let [ userMounthdata , setuserMounthdata ] = useState({})
   let [ userYeardata , setuserYeardata ] = useState('')
   let [ mounth_id_CODE , setmounth_id_CODE ] = useState('')
-
+  let [ Login_Boxclose , setLogin_Boxclose ] = useState(true)
   
   useEffect(()=>{
     userLoginUid.map((item)=>{
@@ -273,18 +273,19 @@ const Menu = () => {
     setMounthSelet(true)
     setYearSelet(false)
   }
-  console.log(useruid);
+  console.log(userMounthdata.sd);
   
   let handleupData = () => {
-    set(ref(db, 'users/' + useruid), {
-      username: userData.displayName,
+
+    set(ref(db, 'users/' + `${useruid}/`), {
+      username: userData.username,
       email: userData.email,
-      profile_picture: userData.photoURL,
+      profile_picture: userData.profile_picture,
       uid: userData.uid,
-      gender: userSEXdata  ,
-      dateOfBirth :`${userDaydata}/${userMounthdata}/${userYeardata}`,
+      gender: userSEXdata.Gender  ,
+      dateOfBirth :`${userDaydata.day}/${userMounthdata.mounth}/${userYeardata}`,
       Delivery_address:{
-        username: userData.displayName,
+        username: userData.username,
         email: userData.email,
         Phone_Number : `${userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number :""}`,
         Division : `${userDelivery.Division !== "" ? userDelivery.Division :""}`,
@@ -294,19 +295,16 @@ const Menu = () => {
         local_address : `${userDelivery.local_address !== "" ? userDelivery.local_address :""}`,
       }
     }).then(()=>{
-      console.log('OK');
-      
+      window.location.reload()
     })
 }
-  console.log(userData.gender);
-  
+  console.log(userSEXdata);
   return (
     <section>
       <section className='w-[100%] h-[100px] sm:h-[120px] '>
-            {
-               userData.gender === undefined || userData.dateOfBirth === undefined
-              ?
-              <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
+        {
+          userData.gender === "undefined" || userData.dateOfBirth === "undefined" ?
+          <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
               <div className=" relative rounded w-[60%] h-[50%] p-[20px] flex flex-wrap bg-[#fff] ">
                 <div className=" w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
                   <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
@@ -360,8 +358,8 @@ const Menu = () => {
                     <h5 onClick={()=>handleDay(item)} className={` ${item[userMounthdata.mounth] !== userMounthdata.mounth ? "hidden" : "block"} text-[#000] bg-[#f3f3f3] my-[1px] p-[6px] text-[16px]`} >{item.day}</h5>
                   ))}
                   </div>
-                    :""
-                  }
+                :""
+              }
                 </div>
                 
                 <div className="absolute bottom-[20px] right-[20px]">
@@ -370,8 +368,8 @@ const Menu = () => {
               </div>
             </div>
             </div>
-           :""
-            }
+            : ""
+        }
         <div className=' z-[999] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
