@@ -39,7 +39,8 @@ const Menu = () => {
   let [ userYeardata , setuserYeardata ] = useState('')
   let [ mounth_id_CODE , setmounth_id_CODE ] = useState('')
   let [ Login_Boxclose , setLogin_Boxclose ] = useState(true)
-  
+  let [ errorGen , setErrorGen ] = useState('')
+  let [ errorDateofbirth , setErrorDateofbirth ] = useState('')
   useEffect(()=>{
     userLoginUid.map((item)=>{
       setUseruid(item);
@@ -65,12 +66,10 @@ const Menu = () => {
     if (e.key === "ArrowRight") {
       setMenuShow(false)
     }
-    if (e.key === "Control" || e.key === "o") {
-      handleLogout()
+    if (e.key === "Enter") {
+      handleupData()
     }
-    if (e.key === "Control" || e.key === "i") {
-      handleLogin()
-    }
+
   }
   document.addEventListener('keydown', handleKeysystem);
   useEffect(() => {
@@ -275,7 +274,7 @@ const Menu = () => {
     setMounthSelet(false)
     setDaySelet(true)
   }
-  console.log();
+
 
   let HandleSelectYear = () => {
     if (YearSelet !== true) {
@@ -292,30 +291,52 @@ const Menu = () => {
   console.log(userMounthdata.sd);
   
   let handleupData = () => {
+    let valid = true; // Start by assuming it's valid
 
+    // Validation for Gender
+    if (userSEXdata.Gender === undefined) {
+        valid = false;
+        setErrorGen(`SORRY MY DEAR ${(userData.username).substring(0 , 6)+"..."} SELECT YOU GENDER `)
+    }
+
+    // Validation for dateOfBirth
+    if (`${userDaydata.day}/${userMounthdata.mounth}/${userYeardata}` === "undefined/undefined/") {
+        valid = false;
+        setErrorDateofbirth(`SORRY MY DEAR ${(userData.username).substring(0 , 6)+"..."} SELECT YOU DATE OF BIRTH `)
+    }
+
+    // If validation fails, do not continue to Firebase update
+    if (!valid) {
+      console.log("fuck");
+        return { valid }; // Return early if invalid
+        
+    }
+
+    // If valid, update the data in Firebase
     set(ref(db, 'users/' + `${useruid}/`), {
-      username: userData.username,
-      email: userData.email,
-      profile_picture: userData.profile_picture,
-      uid: userData.uid,
-      gender: userSEXdata.Gender  ,
-      dateOfBirth :`${userDaydata.day}/${userMounthdata.mounth}/${userYeardata}`,
-      Delivery_address:{
         username: userData.username,
         email: userData.email,
-        Phone_Number : `${userDelivery.Phone_Number !== "" ? userDelivery.Phone_Number :""}`,
-        Division : `${userDelivery.Division !== "" ? userDelivery.Division :""}`,
-        District : `${userDelivery.District !== "" ? userDelivery.District :""}`,
-        unions : `${userDelivery.unions !== "" ? userDelivery.unions :""}`,
-        upazila : `${userDelivery.upazila !== "" ? userDelivery.upazila :""}`,
-        local_address : `${userDelivery.local_address !== "" ? userDelivery.local_address :""}`,
-      }
-    }).then(()=>{
-      window.location.reload()
-    })
+        profile_picture: userData.profile_picture,
+        uid: userData.uid,
+        gender: userSEXdata.Gender,
+        dateOfBirth: `${userDaydata.day}/${userMounthdata.mounth}/${userYeardata}`,
+        Delivery_address: {
+            username: userData.username,
+            email: userData.email,
+            Phone_Number: userDelivery.Phone_Number || "",  // Use default value if empty
+            Division: userDelivery.Division || "",
+            District: userDelivery.District || "",
+            unions: userDelivery.unions || "",
+            upazila: userDelivery.upazila || "",
+            local_address: userDelivery.local_address || "",
+        }
+    }).then(() => {
+        window.location.reload();  // Reload the page after the update
+    }).catch(error => {
+        console.error("Error updating user data: ", error);  // Handle any errors
+    });
+};
 
-    
-}
 
   return (
     <section>
@@ -323,15 +344,17 @@ const Menu = () => {
         {
           userData.gender === "undefined" || userData.dateOfBirth === "undefined" ?
           <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
-              <div className=" relative w-[90%] rounded xl:w-[60%] xl:h-[50%] p-[20px] lg:flex flex-wrap bg-[#fff] ">
+              <div className=" relative w-[90%] rounded xl:w-[60%] xl:h-[55%] p-[20px] lg:flex flex-wrap bg-[#fff] ">
                 <div className=" lg:w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
                   <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
                   <h5 className='text-[#cf0cbf] text-[12px] md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
                   <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
+                  <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gender :</span>{userSEXdata.Gender}</h5>
+                  <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{`${userDaydata.day === undefined ? "" : userDaydata.day }/${userMounthdata.mounth === undefined ? "" : userMounthdata.mounth }/${userYeardata}` }</h5>
                 </div>
                 <div className="lg:w-[30%] mb-[40px] mt-[10px] lg:pl-[20px]">
                   <div className="relative">
-                  <h5 onClick={handleSelectSEX} className={` ${SEXSelet !== false ? "!bg-[#062919] text-[#fffdf8]" : "" } bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] `}>Sex {userSEXdata.Gender ? userSEXdata.Gender : "select"} <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
+                  <h5 onClick={handleSelectSEX} className={` ${SEXSelet !== false ? "!bg-[#062919] text-[#fffdf8]" : "" } bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] `}>Gender {userSEXdata.Gender ? userSEXdata.Gender : "select"} <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
                   {
                     SEXSelet !== false
                     ?
@@ -343,6 +366,7 @@ const Menu = () => {
                     :""
                   }
                   </div>
+                <h5 className='text-[red] flex font-[600]' >{errorGen}</h5>
                   <div className="dateOfBirth relative mt-[7px] flex gap-1 justify-between">
                  
                   <h5 onClick={HandleSelectYear} className=" bg-[#062919] w-[32%] px-[14px] text-[17px] flex justify-center py-[2px] rounded text-[#fffdf8] ">{userYeardata > 0 ? userYeardata : "Year"}</h5>
@@ -379,7 +403,7 @@ const Menu = () => {
                 :""
               }
                 </div>
-                
+                <h5 className='text-[red] flex font-[600]' >{errorDateofbirth}</h5>
                 <div className="absolute bottom-[20px] right-[20px]">
                   <h5 onClick={handleupData} className='px-[20px] py-[3px] bg-[#062919] text-[17px] cursor-pointer flex justify-center rounded text-[#fffdf8]'>Done</h5>
                 </div>
