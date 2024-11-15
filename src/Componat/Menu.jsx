@@ -52,11 +52,27 @@ const Menu = () => {
       setMenuShow(MenuRef.current.contains(e.target))
       // setSuppoutShow(SupportRef.current.contains(e.target))
     }
-
+    
     document.addEventListener("click", HandleCon);
     return () => document.removeEventListener("click", HandleCon)
-
   })
+  let handleKeysystem = (e) => {
+    console.log(e.key);
+    
+    if (e.key === "ArrowLeft") {
+      setMenuShow(true)
+    }
+    if (e.key === "ArrowRight") {
+      setMenuShow(false)
+    }
+    if (e.key === "Control" || e.key === "o") {
+      handleLogout()
+    }
+    if (e.key === "Control" || e.key === "i") {
+      handleLogin()
+    }
+  }
+  document.addEventListener('keydown', handleKeysystem);
   useEffect(() => {
     const yearArray = [];
     for (let i = 2024 ; i > 1900; i--) {
@@ -297,21 +313,23 @@ const Menu = () => {
     }).then(()=>{
       window.location.reload()
     })
+
+    
 }
-  console.log(userSEXdata);
+
   return (
     <section>
       <section className='w-[100%] h-[100px] sm:h-[120px] '>
         {
           userData.gender === "undefined" || userData.dateOfBirth === "undefined" ?
           <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
-              <div className=" relative rounded w-[60%] h-[50%] p-[20px] flex flex-wrap bg-[#fff] ">
-                <div className=" w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
+              <div className=" relative w-[90%] rounded xl:w-[60%] xl:h-[50%] p-[20px] lg:flex flex-wrap bg-[#fff] ">
+                <div className=" lg:w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
                   <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
-                  <h5 className='text-[#cf0cbf] text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
-                  <h5 className='text-[#cf0cbf] flex text-center text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
+                  <h5 className='text-[#cf0cbf] text-[12px] md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
+                  <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
                 </div>
-                <div className="w-[30%]  pl-[20px]">
+                <div className="lg:w-[30%] mb-[40px] mt-[10px] lg:pl-[20px]">
                   <div className="relative">
                   <h5 onClick={handleSelectSEX} className={` ${SEXSelet !== false ? "!bg-[#062919] text-[#fffdf8]" : "" } bg-[#fffdf8] px-[20px] hover:text-[#fffdf8] flex justify-between text-[20px] items-center hover:bg-[#062919] py-[5px] rounded text-[#062919] `}>Sex {userSEXdata.Gender ? userSEXdata.Gender : "select"} <span className='text-[23px]'><IoIosArrowDropdownCircle/></span> </h5>
                   {
@@ -370,7 +388,7 @@ const Menu = () => {
             </div>
             : ""
         }
-        <div className=' z-[999] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
+        <div className=' z-[990] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
             <h1 className='text-[#fff] uppercase text-[30px] font-[700]'>rupkotha</h1>
@@ -380,7 +398,7 @@ const Menu = () => {
               <h5 onClick={valueDelet} className={` ${search !== "" ? "block" : "hidden"} h-[40px] w-[40px] top-0 right-[15%] lg:right-[10%] absolute z-[999] rounded-[50%] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer`} ><IoCloseOutline/></h5>
               <h5 onClick={GoSearchPage} className='h-[40px] w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
             </div>
-            <div ref={MenuRef} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
+            <div ref={MenuRef} onKeyDown={handleKeysystem} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
               <icon className='text-[38px] text-[#fff]' ><FaBars /></icon>
             </div>
           </div>
@@ -401,7 +419,7 @@ const Menu = () => {
            
             {
               useruid === ""
-              ?  <li onClick={handleLogin} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[green] rounded-[10px] font-[700]'>Login</li>
+              ?  <li onKeyDown={handleKeysystem} onClick={handleLogin} className=' font-sans absolute left-[50%] translate-x-[-50%] bottom-[200px] text-[22px] px-[20px] py-[5px] text-[#fff] bg-[green] rounded-[10px] font-[700]'>Login</li>
               : <div className="">
   <Link to={'/'}><li className=' font-sans text-[17px] md:text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Home</li></Link>
             <li className=' font-sans text-[17px] md:text-[22px] px-[20px] py-[5px] rounded-[10px] m-[10px] hover:bg-[#00000013] font-[700]'>Products</li>
