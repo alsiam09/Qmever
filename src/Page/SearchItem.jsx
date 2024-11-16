@@ -42,7 +42,7 @@ const SearchItem = () => {
   return (
     <section>
         <div className="container mx-auto">
-        <div className="ProPraBox cursor-pointer w-[100%] flex flex-wrap gap-[4px] sm:gap-[12px]">
+        <div className="ProPraBox my-[40px] cursor-pointer w-[100%] flex flex-wrap gap-[4px] sm:gap-[12px]">
             {getDataSearch.map((item)=>(
                 <div onClick={() => handleProDetails(item)} className="ProBox w-[49%] sm:w-[32%] lg:w-[24%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]">
                 <div className="proImgBox w-[100%]  flex ">

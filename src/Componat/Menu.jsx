@@ -432,9 +432,9 @@ const Menu = () => {
             <h1 className='text-[#fff] uppercase text-[30px] font-[700]'>rupkotha</h1>
             </div>
             <div className="Search my-[10px] lg:my-[0px] w-[100%] lg:w-[50%] h-[40px] justify-center flex lg:top-[50%] relative lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:absolute">
-              <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[100%] px-[20px] outline-none rounded-l-[5px] h-[40px]  text-[#000000a9] ' placeholder='Search Rupkotha' />
+              <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[100%] px-[20px] outline-none rounded-l-[40px] lg:rounded-l-[5px] h-[40px]  text-[#000000a9] ' placeholder='Search Rupkotha' />
               <h5 onClick={valueDelet} className={` ${search !== "" ? "block" : "hidden"} h-[40px] w-[40px] top-0 right-[15%] lg:right-[10%] absolute z-[999] rounded-[50%] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer`} ><IoCloseOutline/></h5>
-              <h5 onClick={GoSearchPage} className='h-[40px] w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
+              <h5 onClick={GoSearchPage} className='h-[40px] rounded-r-[40px] lg:rounded-none w-[50px] flex justify-center items-center text-[19px] bg-[#f0f0f0] text-[#000] font-[600] cursor-pointer'><IoSearchOutline/></h5>
             </div>
             <div ref={MenuRef} onKeyDown={handleKeysystem} className="MenuBar cursor-pointer absolute top-[50%] right-[0px] translate-y-[-50%]">
               <icon className='text-[38px] text-[#fff]' ><FaBars /></icon>

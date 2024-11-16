@@ -210,7 +210,7 @@ const ProductDetails = () => {
               <img src={info2.productimg3} alt="" />
             </div>
             <div className=" cursor-pointer rightimg w-[77%]">
-              <img onClick={handleImgSlick} className=" cursor-pointer " src={info.imgurl} alt="" />
+              <img onClick={handleImgSlick} className=" cursor-pointer w-[100%] " src={info.imgurl} alt="" />
             </div>
           </div>
           <div className="details w-[100%] lg:w-[43%]">
