@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogout, userUidLogin } from './slice/AllSlice';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 
-import { IoSearchOutline , IoCloseOutline  } from "react-icons/io5";
+import { IoSearchOutline , IoCloseOutline , IoCameraOutline } from "react-icons/io5";
 import { apiData } from './ContextApi';
 
 const Menu = () => {
@@ -38,6 +38,7 @@ const Menu = () => {
   let [ userMounthdata , setuserMounthdata ] = useState({})
   let [ userYeardata , setuserYeardata ] = useState('')
   let [ mounth_id_CODE , setmounth_id_CODE ] = useState('')
+  let [ userIMG , setUserIMG ] = useState('')
   let [ Login_Boxclose , setLogin_Boxclose ] = useState(true)
   let [ errorGen , setErrorGen ] = useState('')
   let [ errorDateofbirth , setErrorDateofbirth ] = useState('')
@@ -316,7 +317,7 @@ const Menu = () => {
     set(ref(db, 'users/' + `${useruid}/`), {
         username: userData.username,
         email: userData.email,
-        profile_picture: userData.profile_picture,
+        profile_picture: userIMG || userData.profile_picture,
         uid: userData.uid,
         gender: userSEXdata.Gender,
         dateOfBirth: `${userDaydata.day}/${userMounthdata.mounth}/${userYeardata}`,
@@ -337,7 +338,16 @@ const Menu = () => {
     });
 };
 
-
+ let handleUserImg = (e) => {
+  let File = e.target.files[0]
+  if (File) {
+    let reader = new FileReader()
+    reader.onloadend = () => {
+      setUserIMG(reader.result)
+    }
+    reader.readAsDataURL(File)
+  }
+ }
   return (
     <section>
       <section className='w-[100%] h-[100px] sm:h-[120px] '>
@@ -346,7 +356,11 @@ const Menu = () => {
           <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
               <div className=" relative w-[90%] rounded xl:w-[60%] xl:h-[55%] p-[20px] lg:flex flex-wrap bg-[#fff] ">
                 <div className=" lg:w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
-                  <img className=' mb-[30px] w-[170px] mx-auto h-[170px] rounded-[50%]' src={userData.profile_picture} alt="" />
+                <div className=" relative mx-auto w-[170px] h-[170px] ">
+                  <label className=' absolute bottom-[5px] right-[5px] text-[#000] text-[18px] h-[40px] rounded-[50%] w-[40px] bg-[#fff] flex justify-center items-center ' htmlFor="fileInput"><IoCameraOutline/></label>
+                  <input onChange={handleUserImg} id='fileInput' className=' hidden ' type="file" />
+                <img className=' mb-[30px] w-[170px] h-[170px] rounded-[50%]' src={ userIMG || userData.profile_picture} alt="" />
+                </div>
                   <h5 className='text-[#cf0cbf] text-[12px] md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
                   <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
                   <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gender :</span>{userSEXdata.Gender}</h5>
