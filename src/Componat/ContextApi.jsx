@@ -30,9 +30,8 @@ const ContextApi = ({ children }) => {
   
   const handleScroll = () => {
     
-    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 600 && !loading) {      
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 1000 && !loading) {      
       setPage(prevPage => prevPage + 1);
-      setLoading(true);
     } else{
       console.log("ok");
     }
