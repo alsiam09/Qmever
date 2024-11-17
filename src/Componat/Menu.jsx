@@ -356,10 +356,12 @@ const Menu = () => {
           <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
               <div className=" relative w-[90%] rounded xl:w-[60%] xl:h-[55%] p-[20px] lg:flex flex-wrap bg-[#fff] ">
                 <div className=" lg:w-[70%] bg-[#062919] p-[20px] rounded-[10px] ">
-                <div className=" relative mx-auto w-[170px] h-[170px] ">
+                <div className="  relative mx-auto w-[170px] h-[170px] ">
                   <label className=' absolute bottom-[5px] right-[5px] text-[#000] text-[18px] h-[40px] rounded-[50%] w-[40px] bg-[#fff] flex justify-center items-center ' htmlFor="fileInput"><IoCameraOutline/></label>
                   <input onChange={handleUserImg} id='fileInput' className=' hidden ' type="file" />
-                <img className=' mb-[30px] w-[170px] h-[170px] rounded-[50%]' src={ userIMG || userData.profile_picture} alt="" />
+                <div className="rounded-[50%]  mb-[30px] flex justify-center items-center overflow-hidden w-[170px] h-[170px] ">
+                <img className=' w-[170px] ' src={ userIMG || userData.profile_picture} alt="" />
+                </div>
                 </div>
                   <h5 className='text-[#cf0cbf] text-[12px] md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] mr-[7px]' >Name :</span>{userData.username}</h5>
                   <h5 className='text-[#cf0cbf] text-[12px] flex text-center md:text-[20px] my-[20px]' ><span className='text-[#f7f5f5] flex mr-[7px]' >Gmail :</span>{userData.email}</h5>
@@ -429,7 +431,7 @@ const Menu = () => {
         <div className=' z-[990] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
-            <h1 className='text-[#fff] uppercase text-[30px] font-[700]'>rupkotha</h1>
+            <h1 className='text-[#fff] text-[30px] font-[700]'>Qmever.bd</h1>
             </div>
             <div className="Search my-[10px] lg:my-[0px] w-[100%] lg:w-[50%] h-[40px] justify-center flex lg:top-[50%] relative lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:absolute">
               <input value={search} onKeyDown={GoSearchEnter} onChange={handleSearch} type="text" className='w-[100%] px-[20px] outline-none rounded-l-[40px] lg:rounded-l-[5px] h-[40px]  text-[#000000a9] ' placeholder='Search Rupkotha' />
