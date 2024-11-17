@@ -8,7 +8,7 @@ const ContextApi = ({ children }) => {
   let [info, setInfo] = useState([]);
   let [loading, setLoading] = useState(true);
   let [page, setPage] = useState(1);
-  const itemsPerPage = 5; // Adjust this to load more or fewer items
+  const itemsPerPage = 10; // Adjust this to load more or fewer items
 
   const getData = async () => {
     try {
@@ -25,12 +25,16 @@ const ContextApi = ({ children }) => {
     getData();
   }, [page]);
 
+  console.log(window.innerHeight + document.documentElement.scrollTop);
+  console.log(document.documentElement.offsetHeight - 600);
+  
   const handleScroll = () => {
     
-    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 20 && !loading) {      
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 600 && !loading) {      
       setPage(prevPage => prevPage + 1);
+      setLoading(true);
     } else{
-
+      console.log("ok");
     }
   };
 
@@ -41,12 +45,14 @@ const ContextApi = ({ children }) => {
     };
   }, [loading]);
 
+  console.log(loading);
+  
   console.log(info, "ok");
 
   return (
     <apiData.Provider value={info}>
       {children}
-      {loading && <div className=" container mx-auto ">
+      {loading !== false && <div className=" container mx-auto ">
         <div className=" my-[40px] ">
                 <SkeletonTheme className='' baseColor="#d4d4d4" highlightColor="#444">
     <p>
@@ -55,6 +61,10 @@ const ContextApi = ({ children }) => {
   </SkeletonTheme>
       </div>
       </div>} {/* Optional loading indicator */}
+      <section className='bg-[#062919]' >
+        <div className="container h-[400px] ">
+        </div>
+    </section>
     </apiData.Provider>
   );
 };
