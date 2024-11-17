@@ -173,18 +173,18 @@ const ProductDetails = () => {
           showSlick === true &&
           <div className="showImg fixed top-[50%] bg-[#000] left-[50%] translate-x-[-50%] translate-y-[-50%]  z-[999] w-[100%] h-[100%] ">
             <icon onClick={handleSlickClose} className=" m-[30px] cursor-pointer justify-end flex p-[10px] text-[#fff] text-[30px]"><IoMdClose /></icon>
-            <Slider className='w-[90%] md:w-[60%] lg:w-[50%] xl:w-[600px] top-[50%] absolute left-[50%] translate-x-[-50%] translate-y-[-50%] ' {...settings}>
+            <Slider className='w-[90%] flex items-center md:w-[60%] lg:w-[50%] xl:w-[600px] top-[50%] absolute left-[50%] translate-x-[-50%] translate-y-[-50%] ' {...settings}>
               <div className="imgBox w-[100%]">
-                <img src={info.imgurl} alt="" />
+                <img className='w-[100%]' src={info.imgurl} alt="" />
               </div>
               <div className="imgBox w-[100%]">
-                <img src={info2.productimg} alt="" />
+                <img className='w-[100%]' src={info2.productimg} alt="" />
               </div>
               <div className="imgBox w-[100%]">
-                <img src={info2.productimg2} alt="" />
+                <img className='w-[100%]' src={info2.productimg2} alt="" />
               </div>
               <div className="imgBox w-[100%]">
-                <img src={info2.productimg3} alt="" />
+                <img className='w-[100%]' src={info2.productimg3} alt="" />
               </div>
             </Slider>
           </div>

@@ -7,7 +7,7 @@ function SampleNextArrow(props) {
     return (
       <div className='sm:block hidden'
         onClick={onClick}
-      ><h2 className='flex justify-center items-center rounded-[50%] text-[27px] w-[50px] h-[50px] absolute top-[50%] translate-y-[-50%] z-[990] left-[10px] bg-[#ffffff49] hover:bg-[#fff]'><IoIosArrowBack /></h2></div>
+      ><h2 className='flex justify-center items-center rounded-[50%] text-[27px] w-[50px] h-[50px] absolute top-[50%] translate-y-[-50%] z-[900] left-[10px] bg-[#ffffff49] hover:bg-[#fff]'><IoIosArrowBack /></h2></div>
     );
   }
   
@@ -16,7 +16,7 @@ function SampleNextArrow(props) {
     return (
       <div className='sm:block hidden'
         onClick={onClick}
-      ><h2 className='  flex justify-center items-center rounded-[50%] text-[27px] w-[50px] h-[50px] absolute top-[50%] translate-y-[-50%] z-[990] right-[10px] bg-[#ffffff49] hover:bg-[#fff]'><IoIosArrowForward /></h2></div>
+      ><h2 className='  flex justify-center items-center rounded-[50%] text-[27px] w-[50px] h-[50px] absolute top-[50%] translate-y-[-50%] z-[900] right-[10px] bg-[#ffffff49] hover:bg-[#fff]'><IoIosArrowForward /></h2></div>
     );
   }
 const Banner = () => {
@@ -34,17 +34,17 @@ const Banner = () => {
   return (
     <section className=' px-[10px] py-[20px]'>
         <div className="container flex mx-auto">
-      <div className="w-[80%]">
+      <div className="w-[100%]">
         <Slider {...settings}>
             <div className="imgBox w-[100%]">
-                <img className=' rounded-[20px] w-[100%]' src="https://i.ibb.co.com/SVdpv68/Green-and-Yellow-Simple-Clean-Shoes-Sale-Banner.png" alt="" />
+                <img className=' rounded-[10px] w-[100%]' src="https://i.ibb.co.com/PzGTq0h/Black-and-Yellow-Minimalist-E-Commerce-Store-Burning-Mercado-Shops-Banner.png" alt="" />
             </div>
             <div className="imgBox w-[100%]">
-                <img className=' rounded-[20px] w-[100%]' src="https://i.ibb.co.com/SVdpv68/Green-and-Yellow-Simple-Clean-Shoes-Sale-Banner.png" alt="" />
+                <img className=' rounded-[10px] w-[100%]' src="https://i.ibb.co.com/PzGTq0h/Black-and-Yellow-Minimalist-E-Commerce-Store-Burning-Mercado-Shops-Banner.png" alt="" />
             </div>
     </Slider>
     </div>
-    <img className='w-[20%] p-[10px] rounded-[20px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkNJRyKOaepOQlOOx_AjFJNEwZ4TtQn-5sLNdlctaf2tYa5xMBfUj2P2nBvb4_qu33w38&usqp=CAU" alt="" />
+    {/* <img className='w-[20%] p-[10px] rounded-[20px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkNJRyKOaepOQlOOx_AjFJNEwZ4TtQn-5sLNdlctaf2tYa5xMBfUj2P2nBvb4_qu33w38&usqp=CAU" alt="" /> */}
         </div>
     </section>
   )
