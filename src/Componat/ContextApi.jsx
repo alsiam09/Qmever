@@ -8,7 +8,7 @@ const ContextApi = ({ children }) => {
   let [info, setInfo] = useState([]);
   let [loading, setLoading] = useState(true);
   let [page, setPage] = useState(1);
-  const itemsPerPage = 10; // Adjust this to load more or fewer items
+  const itemsPerPage = 9; // Adjust this to load more or fewer items
 
   const getData = async () => {
     try {
@@ -17,7 +17,7 @@ const ContextApi = ({ children }) => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setLoading(false);
+      setLoading(true);
     }
   };
 
@@ -26,14 +26,13 @@ const ContextApi = ({ children }) => {
   }, [page]);
 
   console.log(window.innerHeight + document.documentElement.scrollTop);
-  console.log(document.documentElement.offsetHeight - 600);
+  console.log(document.documentElement.offsetHeight);
   
   const handleScroll = () => {
     
-    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 1000 && !loading) {      
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - window.innerHeight && !loading) {      
       setPage(prevPage => prevPage + 1);
     } else{
-      console.log("ok");
     }
   };
 
