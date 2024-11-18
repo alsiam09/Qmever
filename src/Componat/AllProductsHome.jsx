@@ -21,7 +21,7 @@ const AllProductsHome = () => {
                             
                                 item !== null
                                 &&
-                                <div onClick={() => handleProDetails(item)} className=" group ProBox w-[49%] sm:w-[32%] lg:w-[24%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]">
+                                <div onClick={() => handleProDetails(item)} className=" lg:hover:shadow-2xl group ProBox w-[49%] sm:w-[32%] lg:w-[24%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]">
                                     <div className="proImgBox w-[100%] overflow-hidden ">
                                         <img className='w-[100%] rounded-[20px] group-hover:w-[100%]' src={item.imgurl} alt="" />
                                     </div>
