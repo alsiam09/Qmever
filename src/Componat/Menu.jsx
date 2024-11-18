@@ -14,7 +14,6 @@ import { apiData } from './ContextApi';
 const Menu = () => {
   let userLoginUid = useSelector((item)=>item.counter.user)
   let ItemApiData = useContext(apiData)
-  console.log(userLoginUid);
   
   let [ userData , setUserdata ] = useState([])
   let dispatch = useDispatch()
@@ -81,7 +80,6 @@ const Menu = () => {
     setYear(yearArray); // Set the state
   }, []); // Empty dependency array, so this runs only once after the component mounts
 
-  console.log(Year); 
   
   let handleLogin = () => {
     signInWithPopup(auth, provider)
@@ -226,9 +224,6 @@ const Menu = () => {
     {"day":"31" , "mounth_id":"0" , "January":"January" , "March":"March" , "May":"May" , "July":"July" , "August":"August" , "October":"October" , "December":"December"},
   ]
 
-  console.log(Day);
-  
-
   let Mounth = [
     {"mounth":"January" , "mounth_id":"0" , "mounth_level":"01" },
     {"mounth":"February" , "mounth_id":"1" , "mounth_level":"02" },
@@ -289,8 +284,7 @@ const Menu = () => {
     setMounthSelet(true)
     setYearSelet(false)
   }
-  console.log(userMounthdata.sd);
-  
+    
   let handleupData = () => {
     let valid = true; // Start by assuming it's valid
 

@@ -12,27 +12,35 @@ let apiData = createContext();
 const ContextApi = ({ children }) => {
   let [info, setInfo] = useState([]);
   let [loading, setLoading] = useState(true);
+  let [loading2, setLoading2] = useState(false);
+  let [helperLoad , SetHelperLoad] = useState("")
   let [page, setPage] = useState(1);
-  const itemsPerPage = 9; // Adjust this to load more or fewer items
+  const itemsPerPage = 8; // Adjust this to load more or fewer items
   const getData = async () => {
     try {
       const res = await axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json");
       setInfo(prevInfo => [...prevInfo, ...res.data.slice((page - 1) * itemsPerPage, page * itemsPerPage)]);
-      setLoading(false);
+      setLoading(false)
+      SetHelperLoad(res.data.length)
     } catch (error) {
       console.error('Error fetching data:', error);
-      setLoading(true);
     }
   };
 
   let path = window.location.pathname
   
+  useEffect(()=>{
+    if ( info.length !== 0 && helperLoad !== info.length ) {
+      setLoading2(true);
+    } else{
+      setLoading2(false);
+    }
+  },[info , loading2 , helperLoad])
+
   useEffect(() => {
     getData();
   }, [page]);
 
-  console.log(window.innerHeight + document.documentElement.scrollTop);
-  console.log(document.documentElement.offsetHeight);
   
   const handleScroll = () => {
     
@@ -50,10 +58,7 @@ const ContextApi = ({ children }) => {
     };
   }, [loading]);
 
-  console.log(loading);
   
-  console.log(info, "ok");
-
   return (
     <apiData.Provider value={info}>
       {children}
@@ -66,6 +71,17 @@ const ContextApi = ({ children }) => {
   </SkeletonTheme>
       </div>
       </div>:""} {/* Optional loading indicator */}
+      {
+        loading2 === true && path === "/" ? <div className=" container mx-auto ">
+        <div className=" my-[40px] ">
+                <SkeletonTheme className='' baseColor="#d4d4d4" highlightColor="#444">
+    <p>
+      <Skeleton count={3} />
+    </p>
+  </SkeletonTheme>
+      </div>
+      </div>:""
+      }
       <section className='bg-[#062919]' >
         <div className="container mx-auto px-[10px] lg:px-[0px] py-[30px] ">
           <h5 className=' flex items-center text-[#fff] md:text-[30px] font-[700]' >Qmever.com{path}</h5>

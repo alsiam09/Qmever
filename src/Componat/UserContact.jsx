@@ -100,8 +100,6 @@ const UserContact = ({ userDelivery }) => {
                 setdistrict(data?.district?.map((item) => item))
                 setupazila(data?.upazila?.map((item) => item))
                 setunions(data?.unions?.map((item) => item))
-                console.log(data);
-
             });
         }
     }, [window.location.pathname])
