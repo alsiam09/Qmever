@@ -8,6 +8,7 @@ import Cartpage from "./Page/Cartpage"
 import Order from "./Page/Order"
 import SearchItem from "./Page/SearchItem"
 function App() {
+
   let router = createBrowserRouter(createRoutesFromElements(
     <Route element={<RootLayout/>}>
       <Route path="/" element={<Home/>} ></Route>
