@@ -30,7 +30,6 @@ const SearchItem = () => {
             Data()
         }
     },[query])
-    console.log(getDataSearch);
     
     let navigate = useNavigate()
 
