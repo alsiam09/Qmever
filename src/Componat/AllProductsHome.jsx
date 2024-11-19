@@ -10,6 +10,9 @@ const AllProductsHome = () => {
     let handleProDetails = (item) => {
         window.scrollTo(0, 0);
         navigate(`productDetails/${item.ProdectId}`);
+        setTimeout(()=>{
+            window.location.reload()
+        },100)
     }
 
     return (
