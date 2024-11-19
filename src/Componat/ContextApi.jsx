@@ -18,7 +18,6 @@ const ContextApi = ({ children }) => {
 
   let path = window.location.pathname
   const getData = async () => {
-    if (path === "/") {
       try {
         const res = await axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json");
         setInfo(prevInfo => [...prevInfo, ...res.data.slice((page - 1) * itemsPerPage, page * itemsPerPage)]);
@@ -27,7 +26,6 @@ const ContextApi = ({ children }) => {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
   };
 
   
@@ -58,7 +56,7 @@ const ContextApi = ({ children }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [loading , path]);
+  }, [loading]);
 
   
   return (
@@ -101,7 +99,7 @@ const ContextApi = ({ children }) => {
       </div>
       </div>:""} {/* Optional loading indicator */}
       {
-        loading2 === true && path === "/" ? <div className={` container mx-auto `}>
+        loading2 === true ? <div className={` container mx-auto `}>
         <div className=" my-[40px] ">
                 <SkeletonTheme className='' baseColor="#f9f9f9" highlightColor="#fff">
                 <div className="ProPraBox cursor-pointer mx-auto container flex flex-wrap gap-[4px] sm:gap-[12px]">
