@@ -172,46 +172,30 @@ const Menu = () => {
   }, [db])
   const [search, setSearch] = useState("");
   let [ searchBoxShow , setSearchBoxShow ] = useState(false)
-  const handleSearch = async (e) => {
-   
-    try {
-      setSearch(e.target.value);
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json").then((res) => {
+      setGetDataSearch(res?.data?.filter((item) => item?.Prodectname?.toLowerCase().includes(e?.target?.value.toLowerCase())))
       setSearchBoxShow(true)
-      const res = await axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json")
-      if (res?.data) {
-        const filteredData = res?.data?.filter((item) => item?.Prodectname?.toLowerCase().includes(e.target.value.toLowerCase()))
-
-        setGetDataSearch(filteredData)
-      } else {
-        console.log("not ok");
-
-      }
-    } catch (error) {
-      console.log(error);
-
-    }
+    })
   };
-  
+
   const GoSearchEnter = (e) => {
     if (e.key === "Enter") {
       if (searchItemIndex === -1 || searchItemIndex === (getDataSearch.length + 1) ) {
         navigate(`/search_query?query=${encodeURIComponent(search)}`)
         setSearchBoxShow(false)
-        setTimeout(() => {
-          window.location.reload()
-        }, 100);
+        setSearchItemIndex(-1)
       } else {
         const selectedItem = getDataSearch.find((item, idx) => idx === searchItemIndex);
         setSearch(selectedItem.Prodectname)
         navigate(`/search_query?query=${encodeURIComponent(selectedItem.Prodectname)}`)
         setSearchBoxShow(false)
-        setTimeout(() => {
-          window.location.reload()
-        }, 100);
+        setSearchItemIndex(-1)
       }
     }
     if (e.key === "ArrowDown") {
-      if ( getDataSearch.length > searchItemIndex ) {
+      if ( getDataSearch.length - 1 > searchItemIndex ) {
         setSearchItemIndex(item => item + 1)
       }
     }
@@ -224,9 +208,7 @@ const Menu = () => {
   let GoSearchPage = () => {
     navigate(`/search_query?query=${encodeURIComponent(search)}`)
     setSearchBoxShow(false)
-    setTimeout(() => {
-      window.location.reload()
-    }, 100);
+    setSearchItemIndex(-1)
   }
   let valueDelet = () => {
     setSearch("")

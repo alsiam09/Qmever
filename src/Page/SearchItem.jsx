@@ -7,28 +7,21 @@ const SearchItem = () => {
     
     let location = useLocation()
 
+    
+    
     const query = new URLSearchParams(location.search).get('query')
-
+    console.log(query);
+    
     let [getDataSearch , setGetDataSearch] = useState([])
-    let Data = async () => {
-        try {
-            const res = await axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json")
-            if (res?.data) {
-                const filteredData = res?.data?.filter((item)=>item?.Prodectname?.toLowerCase().includes(query.toLowerCase()))
-                setGetDataSearch(filteredData)
-            } else{
-                console.log("not ok");
-                
-            }
-        } catch (error) {
-            console.log(error);
-            
-        }
+    
+    let Data = () => {
+            axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json").then((res)=>{
+                setGetDataSearch(res?.data?.filter((item)=>item?.Prodectname?.toLowerCase().includes(query.toLowerCase())))
+            })
+      
     }
     useEffect(()=>{
-        if (query) {
-            Data()
-        }
+        Data()
     },[query])
     
     let navigate = useNavigate()

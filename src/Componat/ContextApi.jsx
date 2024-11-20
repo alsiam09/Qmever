@@ -15,27 +15,26 @@ const ContextApi = ({ children }) => {
   const [page, setPage] = useState(1); // Current page number
   const itemsPerPage = 12; // Items to fetch per page
 
+  
   // Fetch data function
-  const getData = async () => {
-    try {
-      const res = await axios.get(
+  const getData = () => {
+      axios.get(
         "https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
-      );
+      ).then((res)=>{
 
-      // Simulate paginated data
-      const total = res.data.length;
-      const newItems = res.data.slice(
-        (page - 1) * itemsPerPage,
-        page * itemsPerPage
-      );
+        
+        // Simulate paginated data
+        const total = res.data.length;
+        const newItems = res.data.slice(
+          (page - 1) * itemsPerPage,
+          page * itemsPerPage
+        );
+        
+        setInfo((prevInfo) => [...prevInfo, ...newItems]);
+        setTotalItems(total); // Save total available items
+        setLoading(false); // Stop initial loading
+      })
 
-      setInfo((prevInfo) => [...prevInfo, ...newItems]);
-      setTotalItems(total); // Save total available items
-      setLoading(false); // Stop initial loading
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      alert("Failed to load products. Please try again later.");
-    }
   };
 
   // Infinite scroll handler
@@ -45,7 +44,7 @@ const ContextApi = ({ children }) => {
       document.documentElement.offsetHeight - 300;
 
     // Trigger next page load if on home page and more data is available
-    if (window.location.pathname === "/" && isBottom && info.length < totalItems) {
+    if (isBottom && info.length < totalItems) {
       setPage((prevPage) => prevPage + 1);
     }
   }, 200); // Debounce for 200ms
@@ -54,7 +53,7 @@ const ContextApi = ({ children }) => {
   useEffect(() => {
     getData();
   }, [page]);
-
+  
   // Attach scroll event listener only on home page
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
