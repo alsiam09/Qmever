@@ -1,26 +1,26 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth"; // Import getAuth
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDxuySjLLS2HOsb4io4KIy3Up3mTdgCDOk",
-  authDomain: "rupkotha-a706e.firebaseapp.com",
-  databaseURL: "https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "rupkotha-a706e",
-  storageBucket: "rupkotha-a706e.appspot.com",
-  messagingSenderId: "855471914009",
-  appId: "1:855471914009:web:49ee8dc1aace701243be88",
-  measurementId: "G-RBNS1T1XTV"
+  apiKey: "AIzaSyAUiRjQwcIDRiNkj_JusiTpOKJFmat1J-w",
+  authDomain: "qmever-6b3c3.firebaseapp.com",
+  databaseURL: "https://qmever-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "qmever",
+  storageBucket: "qmever.firebasestorage.app",
+  messagingSenderId: "527170940876",
+  appId: "1:527170940876:web:1f3fb31600c5a009387769"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// Initialize Firebase
 const analytics = getAnalytics(app);
 const auth = getAuth(app); // Initialize auth
 

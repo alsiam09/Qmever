@@ -19,7 +19,7 @@ const ContextApi = ({ children }) => {
   // Fetch data function
   const getData = () => {
       axios.get(
-        "https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
+        "https://qmever-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
       ).then((res)=>{
 
         
