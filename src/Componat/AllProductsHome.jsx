@@ -65,7 +65,7 @@ const AllProductsHome = () => {
                 <div
                   key={item.ProdectId || index} // Use ProdectId as key, fallback to index if missing
                   onClick={() => handleProDetails(item)}
-                  className="lg:hover:shadow-2xl group ProBox w-[49%] sm:w-[32%] lg:w-[24%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]"
+                  className="lg:hover:shadow-2xl group ProBox w-[49%] sm:w-[32%] lg:w-[19%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]"
                 >
                   <div className="proImgBox w-[100%] overflow-hidden">
                     <img
