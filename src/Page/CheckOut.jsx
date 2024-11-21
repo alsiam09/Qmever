@@ -34,59 +34,11 @@ const CheckOut = () => {
   }, [db, userUid]);
 
   const HandleSendOTP = async () => {
-    try {
-      if (!phoneNumber) {
-        console.error("Phone number is missing.");
-        return;
-      }
-  
-      // Validate phone number format
-      const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
-      if (!phoneRegex.test(phoneNumber)) {
-        console.error("Invalid phone number format.");
-        alert("Please enter a valid phone number.");
-        return;
-      }
-  
-      // Initialize reCAPTCHA
-      const recaptchaVerifier = new RecaptchaVerifier(
-        'recaptcha-container', // ID of your reCAPTCHA container div
-        {
-          size: 'normal', // Use 'invisible' for production
-          callback: () => console.log('reCAPTCHA solved'),
-          'expired-callback': () => console.warn('reCAPTCHA expired'),
-        },
-        auth // Pass the Firebase Auth instance
-      );
-     
-      // Send OTP
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
-  
-      // Store confirmation result for OTP verification
-      window.confirmationResult = confirmationResult;
-      setSendOTP(true); // Show OTP input
-      console.log("OTP sent successfully to:", phoneNumber);
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("Failed to send OTP. Check console for details.");
-    }
+    setSendOTP(true); // Show OTP input
   };
   
 const handleVerifyOTP = async () => {
-  try {
-    const otpInputValue = otpInput; // User-entered OTP
-    const confirmationResult = window.confirmationResult;
-
-    const result = await confirmationResult.confirm(otpInputValue); // Verify OTP
-    const user = result.user; // Authenticated user
-    console.log("OTP verified. User:", user);
-
-    // Proceed with placing the order or other actions
-    placeOrder();
-  } catch (error) {
-    console.error("Error verifying OTP:", error);
-    alert("Invalid OTP. Please try again.");
-  }
+  placeOrder()
 };
 
 
