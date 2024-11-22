@@ -15,7 +15,7 @@ const SearchItem = () => {
     let [getDataSearch , setGetDataSearch] = useState([])
     
     let Data = () => {
-            axios.get("https://rupkotha-a706e-default-rtdb.asia-southeast1.firebasedatabase.app/products.json").then((res)=>{
+            axios.get("https://qmever-default-rtdb.asia-southeast1.firebasedatabase.app/products.json").then((res)=>{
                 setGetDataSearch(res?.data?.filter((item)=>item?.Prodectname?.toLowerCase().includes(query.toLowerCase())))
             })
       

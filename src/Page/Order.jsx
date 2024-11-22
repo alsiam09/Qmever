@@ -30,7 +30,7 @@ const Order = () => {
     }, [orders]); // Trigger this effect when orders change
 
 
-    console.log(orderItems);
+    console.log(orderItems , "fuck");
 
 
     return (

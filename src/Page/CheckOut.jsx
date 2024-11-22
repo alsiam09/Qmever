@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import BuyProDucts from '../Componat/BuyProDucts';
 import UserContact from '../Componat/UserContact';
 import { getDatabase, ref, set, onValue } from "firebase/database";
-import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import { removeAllcartPro } from '../Componat/slice/AllSlice';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const CheckOut = () => {
   const db = getDatabase();
-  const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +19,8 @@ const CheckOut = () => {
   const [userDelivery, setUserDelivery] = useState({});
   const [sendOTP, setSendOTP] = useState(false);
   const [otpInput, setOtpInput] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('+8801611569939');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [ids, setids] = useState(1);
 
   useEffect(() => {
     const starCountRef = ref(db, `users/${userUid}`);
@@ -32,21 +32,70 @@ const CheckOut = () => {
       }
     });
   }, [db, userUid]);
-
-  const HandleSendOTP = async () => {
-    setSendOTP(true); // Show OTP input
-  };
   
-const handleVerifyOTP = async () => {
-  placeOrder()
-};
+  useEffect(()=>{
 
+  },[db])
+  
+  const HandleSendOTP = async () => {
+    const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
 
-  const placeOrder = () => {
+    let valid = true;
+    
+    if (!phoneRegex.test(userDelivery.Phone_Number)) {
+      valid = false;
+      console.log("Invalid phone number");
+    }
+    if ( userDelivery.Division === "") {
+      valid = false;
+      console.log("Division is required");
+    }
+    if ( userDelivery.City === "") {
+      valid = false;
+      console.log("City is required");
+    }
+    if ( userDelivery.local_address === "") {
+      valid = false;
+      console.log("Local address is required");
+    }
+    if ( userDelivery.username === "") {
+      valid = false;
+      console.log("Username is required");
+    }
+    const orderId = ref(db , `orders/${userUid}`)
+    onValue(orderId , (snapshot) => {
+      const orders = snapshot.val()
+      if (orders !== null) {
+        const id = snapshot.val().length
+        console.log(id);
+        setids(id)
+      } else{
+        setids(1)
+      }
+      
+    } )
+    if (!valid) return;
+
     try {
-      const orderRef = ref(db, `orders/${userUid}/1`);
-      set(orderRef, {
-        orderId: 1,
+      await axios.post('https://serverrupkotha.onrender.com/send-otp', { to: userDelivery.Phone_Number });
+      setSendOTP(true);
+      console.log("OTP sent successfully");
+   
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+    }
+  };
+
+  const handleVerifyOTP = () => {
+    placeOrder();
+  };
+
+  const placeOrder = async () => {
+ 
+    try {
+      const orderRef = ref(db, `orders/${userUid}/${ids}`);
+      await set(orderRef, {
+        orderId: Date.now(),
         customer: userDelivery,
         orderItem: { BuyItem, orderStatus: "Placed" },
       })
@@ -62,6 +111,8 @@ const handleVerifyOTP = async () => {
     }
   };
 
+  console.log(ids);
+  
   return (
     <section>
       <div className="container px-[10px] my-[30px] mx-auto flex flex-wrap">
@@ -89,7 +140,6 @@ const handleVerifyOTP = async () => {
           </div>
         )}
         <div id="recaptcha-container"></div>
-
         <BuyProDucts HandleSendOTP={HandleSendOTP} BuyItem={BuyItem} />
       </div>
     </section>

@@ -33,10 +33,26 @@ const ContextApi = ({ children }) => {
         setInfo((prevInfo) => [...prevInfo, ...newItems]);
         setTotalItems(total); // Save total available items
         setLoading(false); // Stop initial loading
+      }).catch((err)=>{
+        console.log("fuck",err);
+        
       })
 
   };
 
+  const dta = () => {
+    axios.get("http://localhost:5000/apiData")
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((error) => {
+            console.error("Error fetching data:", error.message);
+        });
+};
+
+useEffect(() => {
+    dta();
+}, []);
   // Infinite scroll handler
   const handleScroll = _.debounce(() => {
     const isBottom =
