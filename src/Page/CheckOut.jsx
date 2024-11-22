@@ -77,7 +77,7 @@ const CheckOut = () => {
     if (!valid) return;
 
     try {
-      await axios.post('https://serverrupkotha.onrender.com/send-otp', { to: userDelivery.Phone_Number });
+      // await axios.post('https://serverrupkotha.onrender.com/send-otp', { to: userDelivery.Phone_Number });
       setSendOTP(true);
       console.log("OTP sent successfully");
    
