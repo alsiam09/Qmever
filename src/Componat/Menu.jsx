@@ -378,7 +378,7 @@ const Menu = () => {
   }
   return (
     <section>
-      <section className='w-[100%] h-[100px] sm:h-[120px] '>
+      <section className='w-[100%] h-[100px] mb-[10px] sm:mb-[0px] sm:h-[120px] '>
         {
           userData.gender === "undefined" || userData.dateOfBirth === "undefined" ?
             <div className=" fixed left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%] bg-[#0000007e] flex justify-center items-center w-[100%] h-[100%] z-[999]">
