@@ -205,16 +205,16 @@ const ProductDetails = () => {
         <div className="productdetailsBox gap-[20px] flex flex-wrap">
           <div className="imgbox w-[100%] flex gap-[10px] lg:w-[55%]">
             <div onClick={handleImgSlick} className=" cursor-pointer leftImg flex flex-wrap gap-y-[10px] w-[23%]">
-              <img src={info2.productimg} alt="" />
-              <img src={info2.productimg2} alt="" />
-              <img src={info2.productimg3} alt="" />
+              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg} alt="" />
+              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg2} alt="" />
+              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg3} alt="" />
             </div>
-            <div className=" cursor-pointer rightimg w-[77%]">
-              <img onClick={handleImgSlick} className=" cursor-pointer w-[100%] " src={info.imgurl} alt="" />
+            <div className=" cursor-pointer overflow-hidden rightimg w-[77%]">
+              <img onClick={handleImgSlick} className=" hover:scale-125 duration-200 cursor-pointer w-[100%] " src={info.imgurl} alt="" />
             </div>
           </div>
           <div className="details w-[100%] lg:w-[43%]">
-            <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>{info.Prodectname}</h2>
+            <h2 className='text-[#000] font-[600] text-[20px] lg:text-[30px] 2xl:text-[40px] uppercase my-[5px]'>{info.Prodectname}</h2>
             <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{modlePrice !== "" ? modlePrice : info.Price}৳</span></h2>
             <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
 

@@ -5,7 +5,6 @@ import UserContact from '../Componat/UserContact';
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { removeAllcartPro } from '../Componat/slice/AllSlice';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const CheckOut = () => {
   const db = getDatabase();
@@ -21,6 +20,15 @@ const CheckOut = () => {
   const [otpInput, setOtpInput] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [ids, setids] = useState(1);
+  let [ errorItem , seterrorItem ] = useState('') 
+  let [ errorItem1 , seterrorItem1 ] = useState('') 
+  let [ errorItem2 , seterrorItem2 ] = useState('') 
+  let [ errorItem3 , seterrorItem3 ] = useState('') 
+  let [ errorItem4 , seterrorItem4 ] = useState('') 
+  let [ errorItem5 , seterrorItem5 ] = useState('') 
+  let [ errorItem6 , seterrorItem6 ] = useState('') 
+
+  let [test , settest] = useState(false)
 
   useEffect(() => {
     const starCountRef = ref(db, `users/${userUid}`);
@@ -38,30 +46,56 @@ const CheckOut = () => {
   },[db])
   
   const HandleSendOTP = async () => {
+    settest(true)
     const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
 
     let valid = true;
     
     if (!phoneRegex.test(userDelivery.Phone_Number)) {
       valid = false;
-      console.log("Invalid phone number");
+      seterrorItem("Invalid phone number");
+    } else{
+      seterrorItem("puss phone number");
     }
     if ( userDelivery.Division === "") {
       valid = false;
-      console.log("Division is required");
+      seterrorItem1("Division is required");
+    } else{
+      seterrorItem1("Division is quired");
     }
-    if ( userDelivery.City === "") {
+    if ( userDelivery.District === "") {
       valid = false;
-      console.log("City is required");
+      seterrorItem2("District is required");
+    } else{
+      seterrorItem2("District is quired");
+    }
+    if ( userDelivery.upazila === "") {
+      valid = false;
+      seterrorItem3("upazila is required");
+    } else{
+      seterrorItem3("upazila is quired");
+    }
+    if ( userDelivery.union === "") {
+      valid = false;
+      seterrorItem4("union is required");
+    } else {
+      seterrorItem4("union is quired");
     }
     if ( userDelivery.local_address === "") {
       valid = false;
-      console.log("Local address is required");
+      seterrorItem5("Local address is required");
+    } else{
+      seterrorItem5("Local address is quired");
     }
     if ( userDelivery.username === "") {
       valid = false;
-      console.log("Username is required");
+      seterrorItem6("Username is required");
+    } else{
+      seterrorItem6("Username is quired");
     }
+    setTimeout(()=>{
+      settest(false)
+    },[1000])
     const orderId = ref(db , `orders/${userUid}`)
     onValue(orderId , (snapshot) => {
       const orders = snapshot.val()
@@ -75,6 +109,7 @@ const CheckOut = () => {
       
     } )
     if (!valid) return;
+
 
     try {
       // await axios.post('https://serverrupkotha.onrender.com/send-otp', { to: userDelivery.Phone_Number });
@@ -95,9 +130,14 @@ const CheckOut = () => {
     try {
       const orderRef = ref(db, `orders/${userUid}/${ids}`);
       await set(orderRef, {
-        orderId: Date.now(),
+        orderId: ids,
+        customerUid: userUid,
         customer: userDelivery,
-        orderItem: { BuyItem, orderStatus: "Placed" },
+        orderItem: BuyItem,
+        TotalBuild: TotalBuild,
+        orderStatus: {
+          orderStatus: "Processing"
+        }
       })
         .then(() => {
           dispatch(removeAllcartPro(cartItem));
@@ -111,11 +151,57 @@ const CheckOut = () => {
     }
   };
 
-  console.log(ids);
+  let [ building_data , setbuilding_data ] = useState({})
+  let [ TotalBuild , settotalBuild ] = useState('')
+
+  useEffect(()=>{
+    const buildingDataPath = ref(db , 'building/')
+    onValue(buildingDataPath , ( snapshot )=>{
+      const building_data = snapshot.val()
+      setbuilding_data(building_data);
+    })
+    const total = BuyItem.flatMap(item => item || []);
+    const total_Cart = BuyItem.flatMap(item => item.totalPrice || []);
+    const total_cartItem = BuyItem.flatMap(item => item.cartItem || []);
+ 
+    if (total_cartItem.length >= 1) {
+      const total_B_C_Cart = Number(total_Cart) +
+      Number(building_data?.delivery_charges) +
+      Number(building_data?.VAT);
+      settotalBuild(total_B_C_Cart);
+      
+    } else {
+      const itemTotal = total.reduce((sum, item) => {
+        const price = Number(item?.Pricesub || item?.Price || 0); 
+        return sum + price;
+      }, 0);
+      const total_B_C = itemTotal +
+        Number(building_data?.delivery_charges) +
+        Number(building_data?.VAT);
+        settotalBuild(total_B_C);
+    }
+  },[db , TotalBuild , building_data])
   
   return (
     <section>
       <div className="container px-[10px] my-[30px] mx-auto flex flex-wrap">
+        {
+          test !== false 
+          ?
+          <div className=" rounded-[20px] fixed w-[80%] bg-[#000] md:w-[50%] py-[30px] px-[20px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
+           {[errorItem, errorItem1, errorItem2, errorItem3, errorItem4, errorItem5, errorItem6].map(
+      (item, index) => (
+        <h5
+          key={index}
+          className="text-[#fff] my-[3px] text-[17px] font-extralight"
+        >
+          {item}
+        </h5>
+      )
+    )}
+          </div>
+          : ""
+        }
         <UserContact userDelivery={userDelivery} />
         {sendOTP && (
           <div className="p-[30px] rounded OTPInput fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[300px] h-[200px] sm:w-[500px] sm:h-[300px] bg-[#fff]">
@@ -140,7 +226,7 @@ const CheckOut = () => {
           </div>
         )}
         <div id="recaptcha-container"></div>
-        <BuyProDucts HandleSendOTP={HandleSendOTP} BuyItem={BuyItem} />
+        <BuyProDucts HandleSendOTP={HandleSendOTP} building_data={building_data} TotalBuild={TotalBuild} BuyItem={BuyItem} />
       </div>
     </section>
   );
