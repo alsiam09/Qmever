@@ -3,6 +3,7 @@ import axios from "axios";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import _ from "lodash"; // Import Lodash for debounce
+import { TbLoader2 } from "react-icons/tb";
 
 // Create Context
 let apiData = createContext();
@@ -91,22 +92,9 @@ useEffect(() => {
       {children}
       {/* Skeleton loader for infinite scroll */}
       {loadingMore ? (
-        <div className="container mx-auto my-[40px]">
-          <SkeletonTheme baseColor="#f9f9f9" highlightColor="#fff">
-            <div className="ProPraBox cursor-pointer mx-auto container flex flex-wrap gap-[4px] sm:gap-[12px]">
-              {[...Array(4)].map((_, index) => (
-                <div
-                  key={index}
-                  className="group ProBox w-[49%] sm:w-[32%] lg:w-[24%] bg-[#fff] py-[6px] px-[6px] rounded-[20px]"
-                >
-                  <div className="proImgBox w-[100%] overflow-hidden">
-                    <Skeleton className="h-[200px] md:h-[300px] my-[10px]" />
-                  </div>
-                  <Skeleton className="my-[3px] h-[20px]" count={2} />
-                </div>
-              ))}
-            </div>
-          </SkeletonTheme>
+        <div className="container flex justify-center mx-auto mb-[60px]">
+          <TbLoader2 
+           className="w-[50px] h-[50px] animate-spin " />
         </div>
       ) : "" }
     </apiData.Provider>
