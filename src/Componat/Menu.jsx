@@ -459,7 +459,7 @@ const Menu = () => {
         <div className=' z-[990] px-[10px] bg-[#062919] fixed top-0 left-[50%] translate-x-[-50%] w-[100%] '>
           <div className=" relative container mx-auto h-[60px] sm:h-[70px] md:h-[80px]">
             <div className="webLogo cursor-pointer w-[100%] flex justify-center items-center h-[60px] sm:h-[70px] md:h-[80px] lg:justify-start">
-              <h1 className='text-[#fff] text-[30px] font-[700]'>Qmever.com</h1>
+              <h1 className='text-[#fff] text-[30px] noselect font-[700]'>Qmever.com</h1>
             </div>
             <div className="Search rounded-l-[40px] shadow-2xl lg:shadow-none rounded-r-[40px] lg:my-[0px] w-[100%] lg:w-[70%] h-[40px] justify-center flex lg:top-[50%] relative lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:absolute">
               <div className="Search rounded-l-[40px] shadow-2xl lg:shadow-none my-[10px] rounded-r-[40px] lg:my-[0px] w-[100%] lg:w-[50%] h-[40px] justify-center flex lg:top-[50%] relative lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:absolute">

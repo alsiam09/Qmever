@@ -209,26 +209,26 @@ const ProductDetails = () => {
               <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg2} alt="" />
               <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg3} alt="" />
             </div>
-            <div className=" cursor-pointer overflow-hidden rightimg w-[77%]">
-              <img onClick={handleImgSlick} className=" hover:scale-125 duration-200 cursor-pointer w-[100%] " src={info.imgurl} alt="" />
+            <div onClick={handleImgSlick} className=" cursor-pointer overflow-hidden rightimg w-[77%]">
+              <img className=" hover:scale-125 duration-200 cursor-pointer w-[100%] " src={info.imgurl} alt="" />
             </div>
           </div>
           <div className="details w-[100%] lg:w-[43%]">
             <h2 className='text-[#000] font-[600] text-[20px] lg:text-[30px] 2xl:text-[40px] uppercase my-[5px]'>{info.Prodectname}</h2>
             <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>Price : <span className='text-[#cf0cbf] font-[500]'>{modlePrice !== "" ? modlePrice : info.Price}৳</span></h2>
-            <h2 className='text-[#000] font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
+            <h2 className='text-[#000] noselect font-[600] text-[20px] my-[5px]'>{info.ModelName}</h2>
 
             {
               info3 !== ""
                 ?
-                <div className="modles mb-[30px] flex-wrap flex gap-[10px]">
+                <div className="modles noselect mb-[30px] flex-wrap flex gap-[10px]">
                   {info3.map((addModle, index) => (
                     <h2 onClick={() => handleModel({ index, addModle })} className={` ${modelselect === true && "border-[red]"} flex border-[1px] py-[10px] px-[20px] rounded justify-center items-center cursor-pointer ${modleaddicon === addModle.Model ? "bg-[#000] text-[#fff]" : "border-[#000] text-[#000]"}  font-[600] text-[20px] my-[5px]`}>{addModle.Model}</h2>
                   ))}
                 </div>
                 : ""
             }
-            <div className="BTnCaBy flex gap-[10px] w-[100%]">
+            <div className="BTnCaBy noselect flex gap-[10px] w-[100%]">
               <h2 onClick={handleBuyNow} className='cursor-pointer text-[#fff] bg-[#062919] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>Buy Now</h2>
               <h2 onClick={handleAddTocart} className='cursor-pointer text-[#fff] bg-[#062919] h-[40px] rounded-[5px] justify-center flex items-center font-[600] w-[50%]'>{addsucess === true ? <h2 className='text-[24px] text-[#188918]'><IoCheckmarkDoneCircle /></h2> : <h2>Add To Cart</h2>} </h2>
             </div>
