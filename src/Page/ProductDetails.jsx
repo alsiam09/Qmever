@@ -51,7 +51,7 @@ const ProductDetails = () => {
   })
   useEffect(() => {
     productData()
-  })
+  },[productId.id])
 
   useEffect(() => {
     LoginInfo.map((item) => {

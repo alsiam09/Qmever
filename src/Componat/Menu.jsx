@@ -9,12 +9,10 @@ import { userLogout, userUidLogin } from './slice/AllSlice';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 
 import { IoSearchOutline, IoCloseOutline, IoCameraOutline } from "react-icons/io5";
-import { apiData } from './ContextApi';
 import axios from 'axios';
 
 const Menu = () => {
   let userLoginUid = useSelector((item) => item.counter.user)
-  let ItemApiData = useContext(apiData)
 
   let [userData, setUserdata] = useState([])
   let dispatch = useDispatch()

@@ -15,7 +15,7 @@ const AllProductsHome = () => {
   const itemsPerPage = 12; // Items to fetch per page
 
   const navigate = useNavigate()
-  // Fetch data function
+
   const getData = () => {
     axios
       .get(
@@ -65,7 +65,6 @@ const AllProductsHome = () => {
   }, [info, totalItems]);
 
   if (loading && info.length === 0) {
-    // Initial skeleton loading
     return (
       <div className="container mx-auto my-10">
         <SkeletonTheme baseColor="#f9f9f9" highlightColor="#fff">
@@ -106,7 +105,7 @@ const AllProductsHome = () => {
             >
               <div className="w-full overflow-hidden rounded-lg">
                 <img
-                  className="w-full h-[200px] md:h-[240px] object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full md:h-[240px] object-cover group-hover:scale-110 transition-transform duration-300"
                   src={item.imgurl}
                   alt={item.Prodectname || "Product Image"}
                 />
