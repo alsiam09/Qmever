@@ -71,9 +71,8 @@ const ProductDetails = () => {
           }, 30);
           setTimeout(() => {
             dispatch(userBuyItem({ ...info, size: modleaddicon, Pricesub: modlePrice, ProdectQun }))
+            window.scrollTo(0,0)
             navigate('/CheckOut')
-            console.log("ok");
-
           }, 1000);
         } else {
           setModelselect(true)
@@ -85,14 +84,12 @@ const ProductDetails = () => {
         dispatch(BuyItemDelete({ ...info, size: modleaddicon, Pricesub: modlePrice, ProdectQun }))
         setTimeout(() => {
           dispatch(userBuyItem({ ...info, ProdectQun }))
-          console.log(info);
+          window.scrollTo(0,0)
           navigate('/CheckOut')
         }, 500);
       }
     } else {
-      console.log("errror");
       setLogErr(true)
-
     }
   }
   let handleAddTocart = () => {
@@ -205,10 +202,10 @@ const ProductDetails = () => {
         <div className="productdetailsBox gap-[20px] flex flex-wrap">
           <div className="imgbox w-[100%] flex gap-[10px] lg:w-[55%]">
             <div onClick={handleImgSlick} className=" cursor-pointer leftImg flex flex-wrap gap-y-[10px] w-[23%]">
-              <div className="w-[100%]">
-              <img className=' hover:scale-100 duration-200' src={info2.productimg} alt="" />
-              <img className=' hover:scale-100 duration-200' src={info2.productimg2} alt="" />
-              <img className=' hover:scale-100 duration-200' src={info2.productimg3} alt="" />
+              <div className="w-[100%] ">
+              <img className='mb-[10px]' src={info2.productimg} alt="" />
+              <img className='my-[10px]' src={info2.productimg2} alt="" />
+              <img className='my-[10px]' src={info2.productimg3} alt="" />
               </div>
             </div>
             <div onClick={handleImgSlick} className=" cursor-pointer overflow-hidden rightimg w-[77%]">

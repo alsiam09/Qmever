@@ -141,6 +141,7 @@ const CheckOut = () => {
       })
         .then(() => {
           dispatch(removeAllcartPro(cartItem));
+          window.scrollTo(0,0)
           console.log("Order placed successfully.");
           setTimeout(() => {
             navigate("/orders");
