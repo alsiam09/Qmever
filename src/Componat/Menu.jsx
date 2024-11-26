@@ -44,7 +44,6 @@ const Menu = () => {
   let [errorDateofbirth, setErrorDateofbirth] = useState('')
   let [getDataSearch , setGetDataSearch] = useState([])
   let [ searchItemIndex , setSearchItemIndex ] = useState(-1)
-  console.log("hi:",searchItemIndex);
   
   useEffect(() => {
     userLoginUid.map((item) => {
