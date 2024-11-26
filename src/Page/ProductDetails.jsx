@@ -205,9 +205,11 @@ const ProductDetails = () => {
         <div className="productdetailsBox gap-[20px] flex flex-wrap">
           <div className="imgbox w-[100%] flex gap-[10px] lg:w-[55%]">
             <div onClick={handleImgSlick} className=" cursor-pointer leftImg flex flex-wrap gap-y-[10px] w-[23%]">
-              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg} alt="" />
-              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg2} alt="" />
-              <img className='w-[100%] hover:scale-100 duration-200' src={info2.productimg3} alt="" />
+              <div className="w-[100%]">
+              <img className=' hover:scale-100 duration-200' src={info2.productimg} alt="" />
+              <img className=' hover:scale-100 duration-200' src={info2.productimg2} alt="" />
+              <img className=' hover:scale-100 duration-200' src={info2.productimg3} alt="" />
+              </div>
             </div>
             <div onClick={handleImgSlick} className=" cursor-pointer overflow-hidden rightimg w-[77%]">
               <img className=" hover:scale-125 duration-200 cursor-pointer w-[100%] " src={info.imgurl} alt="" />
